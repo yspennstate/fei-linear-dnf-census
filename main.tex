@@ -45,7 +45,8 @@ $\Inf_i(f)=\Pr[i\in U]$, and $I(f)=\sum_i\Inf_i(f)$. The Fourier entropy-influen
 Kalai~\cite{FK96} asks for an absolute $C$ with $H(f)\le C\,I(f)$ for every Boolean $f$. It is known for symmetric
 functions~\cite{OWZ}, for read-once formulas over gates of bounded arity~\cite{OT13} and over AND and OR
 gates~\cite{CKLS}, and for read-$k$ decision trees with $k$ fixed~\cite{WWW}; its min-entropy version is known for
-read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}. The erasure entropy of $f$ at $i$ is
+read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}. The erasure entropy (in the sense of Verd\'u and
+Weissman~\cite{VW08}) of $f$ at $i$ is
 \[
 E_i(f)=H\bigl(\mathbf 1[i\in U]\bigm| U\setminus\{i\}\bigr),
 \]
@@ -515,7 +516,9 @@ Boolean functions, ICALP 2011, Lecture Notes in Comput. Sci. 6755, 330--341.
 \url{https://github.com/yspennstate/fei-good-coordinates}, 2026.
 \bibitem{Shm6} Y.~Shmalo, Erasure entropies of sparse linear DNFs,
 \url{https://github.com/yspennstate/fei-sparse-linear-dnf}, 2026.
-\bibitem{WWW} A.~Wan, J.~Wright, C.~Wu, Decision trees, protocols and the entropy-influence conjecture, ITCS 2014,
+\bibitem{VW08} S.~Verd\'u, T.~Weissman, The information lost in erasures, IEEE Trans. Inform. Theory 54 (2008),
+5030--5058.
+\bibitem{WWW} A.~Wan, J.~Wright, C.~Wu, Decision trees, protocols, and the Fourier entropy-influence conjecture, ITCS 2014,
 arXiv:1312.3003.
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
 \url{https://github.com/yspennstate/math-brain-public}.
