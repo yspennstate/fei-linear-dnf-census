@@ -6,6 +6,7 @@ A monotone DNF is linear when any two of its terms share at most one variable. U
 552,251 such functions with exactly eight relevant variables (18,785,639,553 labelled ones). Over all of them
 
 * the largest value of H/I lies in [3.88910541981418, 3.88910541981709] and is attained only by the OR of four variables
+Zenodo: [doi:10.5281/zenodo.24126605](https://doi.org/10.5281/zenodo.24126605).
   with the 4-cycle DNF on four others;
 * the largest value of min_i E_i/Inf_i lies in [3.30470132244542, 3.30470132245649] and is attained only by two disjoint
   4-cycle DNFs.
