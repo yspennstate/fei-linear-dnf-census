@@ -1,0 +1,53 @@
+{
+  "REL_checks": 5152,
+  "SHORT_checks": 6617,
+  "MIX_checks": 234,
+  "REL_max_signed_violation": -0.9063500951699472,
+  "SHORT_max_signed_violation": -1.746663058175904,
+  "MIX_max_signed_violation": -0.5792340152172304,
+  "LOCAL_example": [
+    {
+      "coordinate": 0,
+      "load": 0.125030517578125,
+      "Inf": 0.12502670288085938,
+      "E_Inf": 2.634051649559568
+    },
+    {
+      "coordinate": 1,
+      "load": 0.125,
+      "Inf": 0.12499618530273438,
+      "E_Inf": 2.6340837709922007
+    },
+    {
+      "coordinate": 2,
+      "load": 0.125,
+      "Inf": 0.12499618530273438,
+      "E_Inf": 2.6340837709922007
+    },
+    {
+      "coordinate": 3,
+      "load": 0.125,
+      "Inf": 0.12499618530273438,
+      "E_Inf": 2.6340837709922007
+    }
+  ],
+  "LERR_max_on_3_to_999": [
+    3.2469668050692984,
+    3
+  ],
+  "TD_independent_numpy": [
+    {
+      "width": 3,
+      "q": 3,
+      "entropy_difference": 4.440892098500626e-15,
+      "erasure_difference": -2.6645352591003757e-15
+    },
+    {
+      "width": 4,
+      "q": 5,
+      "entropy_difference": -2.5940138925761858e-11,
+      "erasure_difference": 9.01057006785777e-13
+    }
+  ],
+  "seconds": 0.5713891983032227
+}

@@ -1,0 +1,14 @@
+{
+  "6": {
+    "name": "K_2,2,2",
+    "isomorphic": true
+  },
+  "7": {
+    "name": "join of independent triple with C4",
+    "isomorphic": true
+  },
+  "8": {
+    "name": "two disjoint C4",
+    "isomorphic": true
+  }
+}

@@ -1,0 +1,1 @@
+{"n_max":1,"priority":10,"non_singleton_including_isolates":1,"rows":[{"n":1,"count":1,"max_min_E_Inf":{"value":0,"attainers":[{"terms":[1],"true_count":1,"truth_size":2,"H":0,"I":1,"min_E_Inf":0}]},"max_H_I":{"value":0,"attainers":[{"terms":[1],"true_count":1,"truth_size":2,"H":0,"I":1,"min_E_Inf":0}]}}],"seconds":0.000287749999999999974}

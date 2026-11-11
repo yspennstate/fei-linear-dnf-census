@@ -1,0 +1,528 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+\emergencystretch=2em
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Inf}{\mathrm{Inf}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{The Fourier entropy of linear monotone DNFs on few variables}
+\author{Yitzchak Shmalo}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+A monotone DNF is linear if any two of its terms share at most one variable. Over all linear monotone DNFs with at most
+eight relevant variables, of which there are $552{,}251$ isomorphism classes on exactly eight, we determine by
+exhaustive enumeration with certified logarithms the largest value of the ratio $H(f)/I(f)$ of Fourier entropy to total
+influence and the largest value of $\min_iE_i(f)/\Inf_i(f)$, where $E_i$ is the erasure entropy at $i$. They are
+$3.8891054198\ldots$ and $3.3047013224\ldots$, and each is attained by a single class. A transversal design on $21$
+variables has $H/I=4.1346\ldots$, so neither value is the supremum over the class. We then give three sufficient
+conditions for a coordinate with $E_i\le C\,\Inf_i$ in a linear monotone DNF: a load certificate that assumes no bound
+on widths or degrees, a criterion that involves the loads of the variables of a single term only, and a bound in terms
+of the bias of $f$. On the affine transversal designs with $2^k$ points per line and $k+2\lceil\log_2k\rceil+1$ lines
+per point class, all of these conditions fail at every coordinate, as do the width and variance bounds of earlier work,
+while $\Pr[F=0]$ tends to zero more slowly than any exponential in the number of variables.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+For $f\colon\{0,1\}^n\to\{-1,1\}$ write $f=\sum_S\hat f(S)\chi_S$ with $\chi_S(x)=(-1)^{\sum_{j\in S}x_j}$, and let $U$
+be a random subset with $\Pr[U=S]=\hat f(S)^2$. The Fourier entropy is $H(f)=H(U)$, the influence of $i$ is
+$\Inf_i(f)=\Pr[i\in U]$, and $I(f)=\sum_i\Inf_i(f)$. The Fourier entropy-influence (FEI) conjecture of Friedgut and
+Kalai~\cite{FK96} asks for an absolute $C$ with $H(f)\le C\,I(f)$ for every Boolean $f$. It is known for symmetric
+functions~\cite{OWZ}, for read-once formulas over gates of bounded arity~\cite{OT13} and over AND and OR
+gates~\cite{CKLS}, and for read-$k$ decision trees with $k$ fixed~\cite{WWW}; its min-entropy version is known for
+read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}. The erasure entropy of $f$ at $i$ is
+\[
+E_i(f)=H\bigl(\mathbf 1[i\in U]\bigm| U\setminus\{i\}\bigr),
+\]
+and the FEI conjecture holds if and only if there is an absolute $c$ such that every non-constant Boolean function has
+a coordinate with $E_i(f)\le c\,\Inf_i(f)$~\cite{Shm1}.
+
+Let $F$ be a monotone DNF and $f=1-2F$. We call $F$ \emph{linear} if any two of its terms share at most one variable.
+Read-once DNFs are the linear DNFs in which every variable lies in one term. For linear DNFs whose terms all have width
+$w$ and in which every variable lies in at most $D\le2^{(1-\eta)(w-1)}$ terms, $E_i/\Inf_i=2+o(1)$ at every coordinate
+as $w\to\infty$~\cite{Shm6}, and a DNF of width $w$ has a coordinate with $E_i/\Inf_i\le w+3+\log_2e$~\cite{Shm3};
+for a monotone DNF one term of width $w$ is enough (Section~\ref{sec:prelim}). This paper concerns linear monotone DNFs with no restriction on widths or degrees. Since the minimal DNF
+of a monotone function is unique, linearity is a property of the function.
+
+\subsection{Small dimensions}
+Call two functions equivalent if they differ by a permutation of the variables; $H$, $I$ and the multiset of pairs
+$(E_i,\Inf_i)$ are invariants.
+
+\begin{theorem}\label{thm:census}
+For $n\le8$, Table~\ref{tab:census} lists the number of equivalence classes of linear monotone functions with exactly $n$
+relevant variables, the number of such functions on a fixed set of $n$ variables, and the largest values of $H/I$ and of
+$\min_iE_i/\Inf_i$ over them. Over all linear monotone functions with at most eight relevant variables,
+\[
+3.30470132244542\le\max\min_i\frac{E_i(f)}{\Inf_i(f)}\le3.30470132245649,
+\]
+attained only by $F=y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1\vee z_1z_2\vee z_2z_3\vee z_3z_4\vee z_4z_1$, and
+\[
+3.88910541981418\le\max\frac{H(f)}{I(f)}\le3.88910541981709,
+\]
+attained only by $F=x_1\vee x_2\vee x_3\vee x_4\vee y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1$.
+\end{theorem}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{rrrcc}
+$n$ & classes & functions & $\max\min_iE_i/\Inf_i$ & $\max H/I$\\\hline
+2 & 2 & 2 & 2.0000000000 & 2.0000000000\\
+3 & 5 & 9 & 2.6724889840 & 2.9558895823\\
+4 & 16 & 97 & 2.6340033909 & 3.4024755512\\
+5 & 72 & 2{,}625 & 2.6958875202 & 3.6237403997\\
+6 & 592 & 185{,}521 & 2.9444953039 & 3.7397640179\\
+7 & 10{,}808 & 35{,}406{,}319 & 2.9546838142 & 3.8043570698\\
+8 & 552{,}251 & 18{,}785{,}639{,}553 & 3.3047013225 & 3.8891054198\\
+\end{tabular}
+\caption{Linear monotone functions with exactly $n$ relevant variables. Values rounded to ten decimals; at $n=8$ the
+second largest values are $3.1084496901$ and $3.8663646986$.}\label{tab:census}
+\end{table}
+
+As far as we know this is the first exhaustive computation of the FEI ratio on a class of this size. Biswas and
+Sarkar~\cite{BS} searched all Boolean functions on at most five variables for the min-entropy version of the
+conjecture; the largest ratio of min-entropy to influence they found there is $16/7$.
+
+The maxima of Theorem~\ref{thm:census} are not suprema over the class. The function $\mathrm{AND}_n$ is a linear DNF
+with one term, and $H/I\to4$ along it. The transversal designs of Section~\ref{sec:td}, which have many intersecting
+terms of equal width, give larger values: on $21$ variables, with $49$ terms of width $3$ and every variable in $7$ of
+them, $H/I=4.1345862211$ (Table~\ref{tab:td}). On these designs $\min_iE_i/\Inf_i$ stays between $2.10$ and $2.72$.
+All these values lie well below the best known lower bound $C>6.454784$ on the constant of the conjecture, due to
+Hod~\cite{Hod}, so they say nothing about $C$ itself.
+
+\subsection{Certificates and an obstruction}
+For a variable $j$ put $\lambda_j=\sum_{t\ni j}2^{-(|t|-1)}$, the sum over the terms through $j$; we call it the
+\emph{load} of $j$. In a term of width $L+1$ that meets no other term every variable has load $2^{-L}$.
+
+\begin{theorem}\label{thm:local}
+Let $F$ be a linear monotone DNF and $t$ a term of width $L+1$ with $L\ge3$. If every variable $j$ of $t$ satisfies
+\[
+\lambda_j\le\Bigl(1+\frac1{64L^2}\Bigr)2^{-L},
+\]
+then $E_i(f)<6\,\Inf_i(f)$ for every $i\in t$.
+\end{theorem}
+
+Nothing is assumed about the variables outside $t$, and $t$ need not be a shortest term. Theorem~\ref{thm:local} is a
+proved by a variant of the argument for a finite certificate, Proposition~\ref{prop:mix}, which bounds $|E_i/\Inf_i-2|$ by a quantity computed
+from the terms through $i$ and the loads of their variables, with no maximum width or maximum degree. The third
+condition is a bound by the bias of $f$ (Lemma~\ref{lem:bias}): if $m=\min(\Pr[f=1],\Pr[f=-1])>0$ then
+$H(f)/I(f)<2+2n/\log_2(1/m)$, for every Boolean $f$ on $n$ variables.
+
+Section~\ref{sec:td} shows that these conditions do not combine into a proof of the FEI conjecture for linear monotone
+DNFs. For $Q$ a prime power and $w\le Q$ let $\mathrm{TD}(w,Q)$ be the DNF whose variables are the points of
+$A\times\mathbb F_Q$ for a $w$-set $A\subseteq\mathbb F_Q$ and whose terms are the graphs of the affine maps
+$x\mapsto ax+b$ restricted to $A$.
+
+\begin{theorem}\label{thm:td}
+Let $Q=2^k$ and $w=k+2\lceil\log_2k\rceil+1$, and let $F_k=\mathrm{TD}(w,Q)$. As $k\to\infty$:
+\begin{enumerate}
+\item every term has width $w\to\infty$, and the hypothesis of Theorem~\ref{thm:local} fails for every term;
+\item the right side of the certificate of Proposition~\ref{prop:mix} tends to infinity at every coordinate,
+uniformly over all choices of its parameters;
+\item $\Pr[F_k=0]\to0$ but $\log_2(1/\Pr[F_k=0])/n\to0$, so the bias bound tends to infinity;
+\item the variance bound of Lemma~\ref{lem:rel} tends to infinity at every coordinate.
+\end{enumerate}
+\end{theorem}
+
+Theorem~\ref{thm:td} says nothing about the actual ratios on $F_k$, which we can compute only for small designs; there
+they are small (Table~\ref{tab:td}).
+
+\section{Preliminaries}\label{sec:prelim}
+
+We use the notation of~\cite{Shm6}. Fix $i$ and write $f^{(b)}$ for the restriction $x_i=b$. Put
+$g=\tfrac12(f^{(0)}+f^{(1)})$ and $h=\tfrac12(f^{(0)}-f^{(1)})$, so that $\hat g(T)=\hat f(T)$ and $\hat
+h(T)=\hat f(T\cup\{i\})$ for $T\subseteq[n]\setminus\{i\}$, and $\E h^2=\Inf_i(f)=:\delta$. With $p(T)=\hat g(T)^2$,
+$q(T)=\hat h(T)^2$ and
+\[
+\Phi(a,b)=\eta(a)+\eta(b)-\eta(a+b),\qquad\eta(x)=-x\log_2x,
+\]
+we have $E_i(f)=\sum_T\Phi(p(T),q(T))$. The function $\Phi$ is concave and homogeneous of degree one, hence
+superadditive, it is increasing in each argument, and
+\begin{equation}\label{eq:phiq}
+\Phi(a,b)\le b\log_2\Bigl(e\,\frac{a+b}{b}\Bigr).
+\end{equation}
+If $F$ is monotone and $f=1-2F$, let $N$ and $M$ be the indicators that $F$ vanishes at $x_i=0$ and at $x_i=1$. Then
+$h=N-M$ is the indicator that $i$ is pivotal, $\hat h(\emptyset)=\delta$, and $\hat g(T)=2\hat N(T)-\hat h(T)$ for
+$T\ne\emptyset$. We use the separation inequality of~\cite{Shm6}.
+
+\begin{proposition}[{\cite[Proposition~2]{Shm6}}]\label{prop:sep}
+Let $F$ be monotone, $f=1-2F$, $\delta=\Inf_i(f)>0$. Let $\Omega$ be a family of non-empty subsets of
+$[n]\setminus\{i\}$ and let $\varepsilon\in(0,1]$ and $\kappa\ge0$ satisfy $\sum_{T\notin\Omega}\hat h(T)^2\le
+\varepsilon\delta$ and $\sum_{T\in\Omega}\hat N(T)^2\le\kappa\delta$. Then
+\[
+2-2\varepsilon-\frac{8}{\ln2}\sqrt\kappa\;\le\;\frac{E_i(f)}{\delta}\;\le\;2+\frac{8}{\ln2}\sqrt\kappa
++\varepsilon\log_2\Bigl(e\Bigl[3+\frac{8\Var N}{\varepsilon\delta}\Bigr]\Bigr)+\delta\log_2\bigl(e[1+\delta^{-2}]\bigr).
+\]
+\end{proposition}
+
+The next bound improves the variance lemma of~\cite{Shm3} for monotone functions.
+
+\begin{lemma}\label{lem:rel}
+Let $F$ be monotone, $f=1-2F$, $v=\Var f$ and $\delta=\Inf_i(f)>0$. Then
+\[
+\frac{E_i(f)}{\delta}\le2|\E f|+\log_2\frac{e\,v}{\delta}.
+\]
+\end{lemma}
+
+\begin{proof}
+First, $\Phi(a,b)\le2\sqrt{ab}$. By symmetry and homogeneity it suffices to take $b=1$ and $a=x^2$ with $x\ge1$. Put
+$\ell(x)=2x\ln2-(x^2+1)\ln(x^2+1)+x^2\ln(x^2)$, which is $\ln2$ times $2x-\Phi(x^2,1)$. Then $\ell(1)=0$ and
+$\ell'(x)=2\ln2-2x\ln(1+x^{-2})$. The function $x\ln(1+x^{-2})$ decreases on $[1,\infty)$: its derivative is
+$\ln(1+y)-2y/(1+y)$ with $y=x^{-2}\in(0,1]$, which is non-positive because it vanishes at $y=0$ and has derivative
+$-(1-y)/(1+y)^2\le0$. So $\ell'\ge\ell'(1)=0$ and $\ell\ge0$.
+
+At $T=\emptyset$, $p=(\E f)^2$ and $q=\delta^2$, so the term is at most $2|\E f|\delta$. By Parseval the non-empty
+sets carry $P=\sum_{T\neq\emptyset}p(T)=v-\delta$ and $Q=\sum_{T\ne\emptyset}q(T)=\delta-\delta^2$. By superadditivity
+and~\eqref{eq:phiq},
+\[
+\sum_{T\ne\emptyset}\Phi(p,q)\le\Phi(P,Q)\le Q\log_2\frac{e(v-\delta^2)}{Q}\le Q\log_2\frac{ev}Q\le\delta\log_2\frac{ev}\delta,
+\]
+since $x\mapsto x\log_2(ev/x)$ increases on $(0,v]$ and $Q\le\delta\le v$; here $\delta\le v$ because
+$\delta\le2\mu\le4\mu(1-\mu)=v$ with $\mu=\min(\Pr[f=1],\Pr[f=-1])\le1/2$. If $\delta=1$ the non-empty part vanishes.
+\end{proof}
+
+For comparison, \cite{Shm3} has $2+\log_2e+\log_2(1+v/\delta)$ for every Boolean $f$. The proof of the width bound
+of~\cite{Shm3} uses a single term: if $t$ is any term of width $w$ of a monotone DNF, then some $i\in t$ has
+$\Inf_i(f)\ge2\Pr[F=0]/(2^w-1)$, and Lemma~\ref{lem:rel} gives $E_i/\Inf_i\le2+\log_2(2e(2^w-1))$ there.
+
+\section{The census}\label{sec:census}
+
+\subsection{Enumeration}
+A linear monotone function is determined by its minimal DNF, a linear antichain of subsets of the variables, and the
+function has exactly $n$ relevant variables when the union of the terms is $[n]$. Singleton terms share no variable
+with any other term. It therefore suffices to enumerate, up to isomorphism, the linear hypergraphs on $[n]$ with edges of
+size at least two and isolated vertices allowed, and to add a singleton edge at every isolated vertex.
+
+The enumeration processes widths from $n$ down to $2$. At width $w$ it repeatedly adds to each family every $w$-set
+that meets each existing edge in at most one vertex, keeping one family per isomorphism class, until no new class
+appears, and then passes to $w-1$. Every linear hypergraph is reached: list its edges by decreasing width, and its
+prefixes are linear hypergraphs reached at the earlier stages. Isomorphism is decided by an exact canonical form. The
+vertices are partitioned by the multiset of the sizes of their incident edges, the partition is refined, and
+unresolved cells are individualised; at each leaf the relabelled edge list is sorted, and the least leaf is the
+canonical form. Two families with the same canonical form are related by the permutation read off the two leaves.
+
+\subsection{Completeness}
+Two independent counts confirm that no class is missing or repeated. The number of labelled linear hypergraphs on $[n]$
+with all edges of size at least two, isolated vertices allowed, is computed by a recursion on pairs: choose an uncovered pair $uv$; either no edge
+of size at least three contains it, and then $uv$ is either an edge or not, or exactly one such edge does, and its
+pairs are removed. This is compared with $\sum n!/|\mathrm{Aut}(H)|$ over the census, with $|\mathrm{Aut}(H)|$ counted
+at the canonical leaves. Adding a singleton term at each isolated vertex is a bijection onto the functions with
+exactly $n$ relevant variables, so both counts are the third column of Table~\ref{tab:census}, and they agree for every
+$n\le8$. The census for $n\le5$ was also compared with a brute-force enumeration of all monotone functions.
+
+A second program, written separately and sharing no code with the first, reads the census and checks for each family
+that the terms are distinct, pairwise meet in at most one variable, form an antichain and cover $[n]$; it computes a
+canonical form by a different method (the least sorted relabelled edge list over all relabellings that preserve the
+vertex invariant) and the automorphism count, and recomputes both ratios. It finds no invalid family and no repeated
+class, reproduces the third column of Table~\ref{tab:census}, and agrees with the certified values below to the
+precision of double arithmetic.
+
+\subsection{Certified values}
+For each function the Walsh transform of $f=1-2F$ is computed in integers, so every $p(T)$ and $q(T)$ is an exact
+dyadic rational with denominator $4^n$, and $H$, $I$ and every $E_i$ are integer combinations of $\log_2k$ for
+integers $k\le4^n$, divided by $4^n$. Enclosures of $\log_2k$ are computed in integer arithmetic from
+$\ln x=2\sum_{j\ge0}z^{2j+1}/(2j+1)$ with $z=(x-1)/(x+1)\le1/3$ and a geometric bound on the tail, rounded outwards to
+units of $2^{-52}$; sums are accumulated in signed $128$-bit integers and every floating conversion and division is
+followed by an outward step. This encloses $H/I$ and every $E_i/\Inf_i$ for every function in the census, and the
+intervals in Theorem~\ref{thm:census} are the resulting enclosures for the two maximisers. In both cases the upper end
+of every other class's enclosure lies below the lower end of the maximiser's, which proves uniqueness. The exact values
+are also available as rational combinations of logarithms of primes.
+
+\subsection{The maximisers}
+The maximiser of $\min_iE_i/\Inf_i$ is the OR of two copies, on disjoint variables, of the cycle DNF
+$C_4=y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1$, for which $H/I=3.6125175459$. The maximiser of $H/I$ is the OR of
+$\mathrm{OR}_4$ and $C_4$ on disjoint variables. Both maxima grow at every step from $n=4$ to $n=8$, so the census
+gives no indication of the suprema.
+
+\section{The load certificate}\label{sec:mix}
+
+Let $F$ be a linear monotone DNF and $i$ a variable that lies in no singleton term. Let $t$ range over the terms
+through $i$, put $B_t=t\setminus\{i\}$, $L_t=|B_t|\ge1$, $a_t=2^{-L_t}$, and $b=\sum_ta_t=\lambda_i$. By linearity the
+sets $B_t$ are pairwise disjoint. A \emph{background term} is a term not containing $i$. For a variable $j\ne i$ put
+\[
+\ell_j=\sum_{s\ni j,\ i\notin s}2^{-(|s|-1)},\qquad \eta_t=\sum_{j\in B_t}\ell_j,\qquad
+\theta=1-\frac1b\Bigl[\sum_ta_t\eta_t+\sum_{s<t}a_sa_t\Bigr].
+\]
+For $j\in B_t$, a term through $j$ other than $t$ does not contain $i$, since it would share two variables with $t$;
+so $\ell_j=\lambda_j-a_t$. For integers $1\le k_t\le L_t$ put
+\[
+\gamma_t=a_t\sum_{r<k_t}\binom{L_t}r,\qquad
+\alpha_t=2^{\binom{k_t}2-2k_t}\sum_{J\subseteq B_t,\ |J|=k_t}\ \frac{\prod_{j\in J}\ell_j}{1-\frac12\sum_{j\in J}\ell_j},
+\]
+and
+\[
+\varepsilon=\min\Bigl(1,\sum_t\gamma_t\Bigr),\qquad \kappa=\frac{\sum_t\alpha_t}{b\theta}.
+\]
+
+\begin{proposition}\label{prop:mix}
+If $\theta>0$, every denominator in $\alpha_t$ is positive, and $b\le1/4$, then
+\[
+\Bigl|\frac{E_i(f)}{\Inf_i(f)}-2\Bigr|\le2\varepsilon+\frac8{\ln2}\sqrt\kappa
++\varepsilon\log_2\Bigl(e\Bigl[3+\frac8{\varepsilon b\theta}\Bigr]\Bigr)+b\log_2\bigl(e[1+b^{-2}]\bigr).
+\]
+\end{proposition}
+
+When all terms have width $w$ and all loads are bounded through the degree, this is~\cite[Theorem~6]{Shm6}; the proof
+follows the three lemmas there, and we indicate the changes. Let $N$ be the indicator that every background term fails,
+$A=\E N$, $A_t$ the indicator that all of $B_t$ equal $1$, and $h=N\cdot\mathbf 1[\bigvee_tA_t]$, so that
+$\delta=\E h=\Inf_i(f)$.
+
+\begin{lemma}\label{lem:m1}
+$Ab\theta\le\delta\le Ab$.
+\end{lemma}
+
+\begin{proof}
+The upper bound is Harris's inequality for the decreasing $N$ and the increasing $A_t$, and the union bound. For the
+lower bound fix $t$, let $R_t$ indicate that every background term disjoint from $B_t$ fails, and let $V_t$ be the OR
+of the residual conjunctions $s\setminus B_t$ of the background terms $s$ meeting $B_t$. Each such $s$ meets $B_t$ in one
+variable, so $\Pr[V_t]\le\eta_t$, and $R_t$ and $V_t$ do not depend on $B_t$. By Harris,
+$\Pr[N,A_t]=a_t\Pr[R_t,\overline{V_t}]\ge a_t\Pr[R_t](1-\eta_t)\ge a_tA(1-\eta_t)$; if $\eta_t>1$ this holds
+trivially. For $s\ne t$, $\Pr[N,A_s,A_t]\le Aa_sa_t$, since $B_s$ and $B_t$ are disjoint. Bonferroni's inequality gives
+$\delta\ge A\sum_ta_t(1-\eta_t)-A\sum_{s<t}a_sa_t=Ab\theta$.
+\end{proof}
+
+Let $\Omega$ be the family of sets $T\subseteq[n]\setminus\{i\}$ with $|T\cap B_t|\ge k_t$ for some $t$.
+
+\begin{lemma}\label{lem:m2}
+$\sum_{T\notin\Omega}\hat h(T)^2\le\varepsilon\delta$.
+\end{lemma}
+
+\begin{proof}
+Order the terms through $i$ and put $h_t=NA_t\prod_{u<t}(1-A_u)$. These have disjoint supports and sum to $h$, so
+$\sum_t\|h_t\|_2^2=\delta$. As in~\cite[Lemma~4]{Shm6}, $h_t=A_t\Psi_t$ with $\Psi_t$ independent of $B_t$, so the
+weight of $\hat h_t^2$ on sets meeting $B_t$ in exactly $r$ variables is $\binom{L_t}ra_t\|h_t\|_2^2$, and the weight
+of $\hat h_t^2$ off $\Omega$ is at most $\gamma_t\|h_t\|_2^2$. By the triangle inequality and Cauchy--Schwarz,
+\[
+\Bigl(\sum_{T\notin\Omega}\hat h(T)^2\Bigr)^{1/2}\le\sum_t\gamma_t^{1/2}\|h_t\|_2\le\Bigl(\sum_t\gamma_t\Bigr)^{1/2}\delta^{1/2}.
+\]
+The bound by $\delta$ is trivial.
+\end{proof}
+
+\begin{lemma}\label{lem:m3}
+$\sum_{T\in\Omega}\hat N(T)^2\le A\sum_t\alpha_t$.
+\end{lemma}
+
+\begin{proof}
+Every $T\in\Omega$ contains a $k_t$-subset $J$ of some $B_t$, and $\sum_{T\supseteq J}\hat N(T)^2=\|D_JN\|_2^2$. Fix
+such $J$, $k=k_t$. A background term meets $J$ in at most one variable. Let $R_J$ indicate that every background term
+avoiding $J$ fails, and $Q_j$, for $j\in J$, the OR of the residual conjunctions $s\setminus\{j\}$ of the background terms
+$s\ni j$; then $\Pr[Q_j]\le\ell_j$, and as in~\cite[Lemma~5]{Shm6}, $\|D_JN\|_2^2=4^{-k}\Pr[R_J,\bigwedge_jQ_j]\le
+4^{-k}\Pr[R_J]\Pr[\bigwedge_jQ_j]$. For $\bigwedge_jQ_j$ a background term $s_j\ni j$ must have its residual conjunction
+satisfied for each $j$. The $s_j$ are distinct, two of the residual sets share at most one variable, so their union has
+at least $\sum_j(|s_j|-1)-\binom k2$ variables, and summing over the choices gives $\Pr[\bigwedge_jQ_j]\le2^{\binom
+k2}\prod_{j\in J}\ell_j$. Finally $A\ge\Pr[R_J]-\sum_j\frac12\Pr[R_J,Q_j]\ge\Pr[R_J](1-\frac12\sum_j\ell_j)$ by Harris,
+since $x_j$ is independent of $R_J$ and $Q_j$. Hence $\|D_JN\|_2^2$ is at most $A$ times the summand of $\alpha_t$
+indexed by $J$; sum over $J$ and $t$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:mix}]
+By Lemmas~\ref{lem:m3} and~\ref{lem:m1}, $\sum_\Omega\hat N^2\le A\sum_t\alpha_t\le\kappa\delta$, and by
+Lemma~\ref{lem:m2} the first hypothesis of Proposition~\ref{prop:sep} holds with $\varepsilon$; note $\varepsilon\ge
+b>0$ because $\gamma_t\ge a_t$. The sets in $\Omega$ are non-empty. In the upper bound of Proposition~\ref{prop:sep},
+$\Var N\le A\le\delta/(b\theta)$, and $\delta\le Ab\le b\le1/4$; the function $x\log_2(e[1+x^{-2}])$ is increasing on
+$(0,1/4]$~\cite{Shm6}. The lower bound of Proposition~\ref{prop:sep} is within the stated error.
+\end{proof}
+
+\section{A criterion on one term}\label{sec:local}
+
+\begin{proof}[Proof of Theorem~\ref{thm:local}]
+Put $a=2^{-L}$, $u=1/(64L^2)$, $\theta_0=1-Lua$, and fix $i\in t$. The terms through $i$ other than $t$ have total
+weight $\lambda_i-a\le ua$, and every $j\in t\setminus\{i\}$ has $\ell_j=\lambda_j-a\le ua$. Let $N$, $A$, $A_t$ and
+$h$ be as in Section~\ref{sec:mix}, and split $h=h_t+h'$ with $h_t=NA_t$, $h'=N(1-A_t)\mathbf 1[\bigvee_{s\ne t}A_s]$,
+which have disjoint supports. By Harris and the proof of Lemma~\ref{lem:m1},
+\[
+\|h_t\|_2^2\le Aa,\qquad\|h'\|_2^2\le Aua,\qquad Aa\theta_0\le\delta\le A(1+u)a.
+\]
+Let $\Omega$ be the family of sets that contain at least one variable of $t\setminus\{i\}$. The weight of $\hat h_t^2$
+off $\Omega$ is $a\|h_t\|_2^2\le Aa^2$, so
+\[
+\Bigl(\sum_{T\notin\Omega}\hat h(T)^2\Bigr)^{1/2}\le\sqrt{Aa}\,(\sqrt a+\sqrt u),\qquad
+\sum_{T\notin\Omega}\hat h(T)^2\le\varepsilon_0\delta,\quad\varepsilon_0=\frac{(\sqrt a+\sqrt u)^2}{\theta_0}.
+\]
+The proof of Lemma~\ref{lem:m3} with $k=1$ for the single block $t\setminus\{i\}$ gives $\sum_\Omega\hat N^2\le
+A\,Lua/(4(1-ua/2))\le\kappa_0\delta$ with $\kappa_0=Lu/(4\theta_0(1-ua/2))$. Proposition~\ref{prop:sep}, with $\Var
+N\le A\le\delta/(a\theta_0)$ and $\delta\le b_0=(1+u)a$, gives
+\[
+\frac{E_i}{\delta}\le2+\frac8{\ln2}\sqrt{\kappa_0}+\varepsilon_0\log_2\Bigl(e\Bigl[3+\frac{8}{\varepsilon_0a\theta_0}\Bigr]\Bigr)
++b_0\log_2\bigl(e[1+b_0^{-2}]\bigr).
+\]
+Now let $L\ge3$, so $a\le1/8$ and $\sqrt u=1/(8L)\le1/24$. Then $\theta_0\ge1-1/1536$, $\varepsilon_0<0.157$, and
+$L\varepsilon_0<0.47$, since $La$, $L\sqrt{au}=2^{-L/2}/8$ and $Lu$ decrease in $L$. Next
+$\kappa_0<1/(256L\cdot0.999)<0.0014$, so the second term is below $11.55\cdot0.0374<0.44$. Since
+$\varepsilon_0a\theta_0\le1$, the third term is at most
+\[
+\varepsilon_0\Bigl[\log_2\frac{11e}{\theta_0}+L+\log_2\frac1{\varepsilon_0}\Bigr]<0.157\cdot5+0.47+\frac1{e\ln2}<1.79.
+\]
+Finally $b_0<0.126$, and since $x\log_2(e[1+x^{-2}])$ increases on $(0,1/4]$ the last term is below
+$0.126\log_2(e\cdot64)<0.95$. Altogether $E_i/\delta<2+0.44+1.79+0.95<6$.
+\end{proof}
+
+For terms of width at most three the bound $2+\log_2(2e(2^w-1))<7.3$ of Section~\ref{sec:prelim} holds at a variable
+of largest influence in the term, with no hypothesis on loads.
+
+\section{Bias}\label{sec:bias}
+
+\begin{lemma}\label{lem:bias}
+Let $f\colon\{0,1\}^n\to\{-1,1\}$, $m=\min(\Pr[f=1],\Pr[f=-1])>0$ and $r=\log_2(1/m)$. Then
+\[
+\frac{H(f)}{I(f)}\le2+\frac{2(n-2+\log_2e)}r.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $v=1-\hat f(\emptyset)^2=4m(1-m)$ be the weight off the empty set. Conditioning on whether $U$ is empty,
+$H(f)\le h_2(v)+v\log_2(2^n-1)\le v\log_2(e/v)+vn$, using $-(1-v)\log_2(1-v)\le v\log_2e$. The right side increases
+in $v$ on $(0,1]$, and $v\le4m$, so $H(f)\le4m(n+r+\log_2e-2)$. A set $S$ of $s$ vertices of the $n$-cube spans at most
+$\frac12s\log_2s$ edges~\cite{Harper,Hart}, so at least $s(n-\log_2s)$ edges leave it; with $S$ the minority set,
+$s=m2^n$, this gives $I(f)\ge2\cdot2^{-n}s(n-\log_2s)=2mr$. Divide.
+\end{proof}
+
+For $\mathrm{AND}_n$ one has $m=2^{-n}$, $r=n$, and both sides tend to $4$. The bound is useful only when $m$ is
+exponentially small in $n$: if $m\le2^{-\beta n}$ it gives $H/I<2+2/\beta$.
+
+\section{Transversal designs}\label{sec:td}
+
+Let $Q$ be a prime power, $A\subseteq\mathbb F_Q$ with $|A|=w$, and let $\mathrm{TD}(w,Q)$ have variables $(x,y)\in
+A\times\mathbb F_Q$ and terms $t_{a,b}=\{(x,ax+b):x\in A\}$ for $a,b\in\mathbb F_Q$. It has $n=wQ$ variables and $Q^2$
+terms of width $w$; the point $(x,y)$ lies on the $Q$ terms with $b=y-ax$; two distinct affine maps agree at most once,
+so the DNF is linear. Every variable has load $\lambda=Q2^{-(w-1)}$, and every variable of a term $t$ through $i$, other
+than $i$, has $\ell_j=(Q-1)2^{-(w-1)}$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{rrrrcccc}
+$w$ & $Q$ & $n$ & terms & $\Pr[F=0]$ & $H/I$ & $\min_iE_i/\Inf_i$ & $\max_iE_i/\Inf_i$\\\hline
+3 & 3 & 9 & 9 & 0.4180 & 3.0856094956 & 2.1015004988 & 2.1015004988\\
+3 & 5 & 15 & 25 & 0.1435 & 3.8797848238 & 2.7150952652 & 2.7150952652\\
+4 & 5 & 20 & 25 & 0.3219 & 3.9024430124 & 2.4713311010 & 2.4713311010\\
+3 & 7 & 21 & 49 & 0.0408 & 4.1345862211 & 2.5335124504 & 2.5335124504\\
+5 & 5 & 25 & 25 & 0.5332 & 3.8799716886 & 2.2003373077 & 2.2003373077\\
+\end{tabular}
+\caption{$\mathrm{TD}(w,Q)$ with $A=\{0,\dots,w-1\}$, from exact Walsh transforms.}\label{tab:td}
+\end{table}
+
+\begin{proof}[Proof of Theorem~\ref{thm:td}]
+Write $L=w-1=k+2\lceil\log_2k\rceil$, $a=2^{-L}$, $\lambda=Qa=2^{-2\lceil\log_2k\rceil}\in[1/(4k^2),1/k^2]$ and
+$\ell=(Q-1)a<\lambda$; note $w\le Q$ for $k\ge3$ and $L/k\to1$.
+
+(1) $\lambda_j/a=Q$, far above $1+1/(64L^2)$.
+
+(2) Fix $i$. It lies in $d=Q$ terms with $L_t=L$, so $b=\lambda$, $\eta_t=L\ell$ and
+$\theta=1-L\ell-(Q-1)a/2=1-O(1/k)$. Choose thresholds $k_t$. If at least $Q/2$ of them are at least $4$, then
+$\sum_t\gamma_t\ge\frac Q2a\binom L3=\frac\lambda2\binom L3\ge\frac{L^3(1-o(1))}{48k^2}\to\infty$, so eventually
+$\varepsilon=1$ and the third term of Proposition~\ref{prop:mix} is at least $\log_2(8e/\lambda)\to\infty$.
+Otherwise at least $Q/2$ of them lie in $\{1,2,3\}$, and a block with $k_t=r$ has
+$\alpha_t=\binom Lr2^{\binom r2-2r}\ell^r/(1-r\ell/2)$, so
+\[
+\kappa\ge\frac{Q}{2}\cdot\frac{\min_{r\le3}\alpha^{(r)}}{Qa\theta}=\frac{\min_{r\le3}\alpha^{(r)}}{2a\theta}.
+\]
+Since $\ell\ge\lambda/2$ and $1/a=Q/\lambda$, $\alpha^{(r)}/a$ is of order $\binom Lr\lambda^{r-1}Q$, that is $LQ$,
+$Q$ and $Q/L$ for $r=1,2,3$ up to bounded factors. So $\kappa\to\infty$.
+
+(3) Let $Z$ be the number of satisfied terms and $p=2^{-w}$. Then $\E Z=Q^2p\ge2^k/(8k^2)\to\infty$. Terms with
+disjoint variables are independent; two intersecting terms have covariance $2^{-(2w-1)}-p^2=p^2$, and each term meets
+$w(Q-1)$ others. Hence $\Var Z/(\E Z)^2\le1/\E Z+w/Q\to0$, and $\Pr[F=0]=\Pr[Z=0]\to0$ by Chebyshev's inequality. On
+the other hand the failures of the terms are decreasing events, so by Harris $\Pr[F=0]\ge(1-p)^{Q^2}$ and
+\[
+\frac{\log_2(1/\Pr[F=0])}{n}\le\frac Qw\log_2\frac1{1-p}=O\Bigl(\frac{2^{k-w}}w\Bigr)=O(k^{-3}).
+\]
+Once $\Pr[F=0]<1/2$ the minority value is $F=0$, so $m=\Pr[F=0]$, and the bound of Lemma~\ref{lem:bias}, which
+exceeds $2(n-1)/\log_2(1/\Pr[F=0])$, tends to infinity.
+
+(4) Fix $i$ and let $N$ and $A$ be as in Section~\ref{sec:mix}. Since $x_i$ is independent of $N$ and of the $A_t$,
+$\Pr[F=0]=A-\frac12\delta$, and $\delta\le A\lambda$ by Lemma~\ref{lem:m1}. Hence $\delta/\Pr[F=0]\le\lambda/(1-\lambda/2)$
+and $\Var f/\delta=4\Pr[F=0]\Pr[F=1]/\delta\ge4\Pr[F=1](1-\lambda/2)/\lambda\to\infty$, uniformly in $i$, so the right
+side of Lemma~\ref{lem:rel} tends to infinity.
+\end{proof}
+
+For $\mathrm{TD}(w,2^k)$ the width bound of Section~\ref{sec:prelim} is of order $w$, and Theorem~\ref{thm:local} does
+not apply to any term. So a linear monotone DNF in which every restriction has a coordinate covered by one of these
+bounds satisfies $H\le C\,I$ by the induction of~\cite{Shm1}, but the designs show that not every linear monotone DNF
+has such a coordinate even at the root. Covering them would need either a separation estimate that uses the loads
+conditional on the background event $N$, rather than the unconditional loads, or a bound for averages over whole terms
+in the spirit of decision-tree arguments. Table~\ref{tab:td} suggests that the actual ratios on the designs remain
+small.
+
+\section*{Acknowledgements and funding}
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
+Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent
+memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results,
+coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see
+the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework
+repository~\cite{BrainFramework}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's
+Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of
+the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus
+Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant
+4101/25). Computational resources were provided in part by Google Cloud through its education credits program (credit
+530550103).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital.
+These entities are included in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics, and its
+results were developed with the Brain~\cite{BrainFramework} and Math Brain~\cite{MathBrainRepo}. In November 2026 a
+Claude Fable agent (Anthropic) and Codex agents running OpenAI's GPT-6.1, connected to the Brain and working on the same
+problem, studied erasure entropies of DNFs; a Codex agent wrote the census programs, ran the census and found the
+certificates, the transversal-design obstruction and their proofs. Claude Opus 5.5 (Anthropic) rederived each proof,
+wrote the independent census check and the design computations, prepared the manuscript and audited it. These checks
+are not peer review. The author directed the work and is responsible for the content of the paper and for decisions
+concerning its dissemination.
+
+\section*{Code and data availability}
+Code and outputs: \url{https://github.com/yspennstate/fei-linear-dnf-census}.
+The paper is part of the Math Brain project, whose public repository is
+\url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+
+\begin{thebibliography}{99}
+\bibitem{ACKSW} S.~Arunachalam, S.~Chakraborty, M.~Kouck\'y, N.~Saurabh, R.~de~Wolf, Improved bounds on Fourier
+entropy and min-entropy, ACM Trans. Comput. Theory 13 (2021), arXiv:1809.09819.
+\bibitem{BS} A.~Biswas, P.~Sarkar, A lower bound on the constant in the Fourier min-entropy/influence conjecture,
+Discrete Appl. Math. (2025), doi:10.1016/j.dam.2024.12.011, arXiv:2212.07713.
+\bibitem{CKLS} S.~Chakraborty, R.~Kulkarni, S.~V.~Lokam, N.~Saurabh, Upper bounds on Fourier entropy, Theoret.
+Comput. Sci. 654 (2016), 92--112.
+\bibitem{FK96} E.~Friedgut, G.~Kalai, Every monotone graph property has a sharp threshold, Proc. Amer. Math. Soc.
+124 (1996), 2993--3002.
+\bibitem{Harper} L.~H.~Harper, Optimal assignments of numbers to vertices, J. Soc. Indust. Appl. Math. 12 (1964),
+131--135.
+\bibitem{Hart} S.~Hart, A note on the edges of the $n$-cube, Discrete Math. 14 (1976), 157--163.
+\bibitem{Hod} R.~Hod, Improved lower bounds for the Fourier entropy/influence conjecture via lexicographic functions,
+arXiv:1711.00762, 2017.
+\bibitem{OT13} R.~O'Donnell, L.-Y.~Tan, A composition theorem for the Fourier entropy-influence conjecture, ICALP 2013.
+\bibitem{OWZ} R.~O'Donnell, J.~Wright, Y.~Zhou, The Fourier entropy-influence conjecture for certain classes of
+Boolean functions, ICALP 2011, Lecture Notes in Comput. Sci. 6755, 330--341.
+\bibitem{Shalev} G.~Shalev, On the Fourier entropy influence conjecture for extremal classes, arXiv:1806.03646, 2018.
+\bibitem{Shm1} Y.~Shmalo, The one-coordinate step in the Fourier entropy-influence conjecture,
+\url{https://github.com/yspennstate/fourier-entropy-influence-one-coordinate}, 2026.
+\bibitem{Shm3} Y.~Shmalo, Good coordinates in the Fourier entropy-influence conjecture,
+\url{https://github.com/yspennstate/fei-good-coordinates}, 2026.
+\bibitem{Shm6} Y.~Shmalo, Erasure entropies of sparse linear DNFs,
+\url{https://github.com/yspennstate/fei-sparse-linear-dnf}, 2026.
+\bibitem{WWW} A.~Wan, J.~Wright, C.~Wu, Decision trees, protocols and the entropy-influence conjecture, ITCS 2014,
+arXiv:1312.3003.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
+\url{https://github.com/yspennstate/math-brain-public}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research},
+October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026,
+\url{https://github.com/yspennstate/brain-framework-public}.
+\end{thebibliography}
+
+\end{document}
