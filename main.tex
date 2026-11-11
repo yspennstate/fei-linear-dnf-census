@@ -30,8 +30,8 @@ $3.8891054198\ldots$ and $3.3047013224\ldots$, and each is attained by a single 
 variables has $H/I=4.1346\ldots$, so neither value is the supremum over the class. We then give three sufficient
 conditions for a coordinate with $E_i\le C\,\Inf_i$ in a linear monotone DNF: a load certificate that assumes no bound
 on widths or degrees, a criterion that involves the loads of the variables of a single term only, and a bound in terms
-of the bias of $f$. On the affine transversal designs with $2^k$ points per line and $k+2\lceil\log_2k\rceil+1$ lines
-per point class, all of these conditions fail at every coordinate, as do the width and variance bounds of earlier work,
+of the bias of $f$. On the affine transversal designs with $k+2\lceil\log_2k\rceil+1$ groups of $2^k$ points each,
+all of these conditions fail at every coordinate, as do the width and variance bounds of earlier work,
 while $\Pr[F=0]$ tends to zero more slowly than any exponential in the number of variables.
 \end{abstract}
 
@@ -119,7 +119,7 @@ Let $F$ be a linear monotone DNF and $t$ a term of width $L+1$ with $L\ge3$. If 
 then $E_i(f)<6\,\Inf_i(f)$ for every $i\in t$.
 \end{theorem}
 
-Nothing is assumed about the variables outside $t$, and $t$ need not be a shortest term. Theorem~\ref{thm:local} is a
+Nothing is assumed about the variables outside $t$, and $t$ need not be a shortest term. Theorem~\ref{thm:local} is
 proved by a variant of the argument for a finite certificate, Proposition~\ref{prop:mix}, which bounds $|E_i/\Inf_i-2|$ by a quantity computed
 from the terms through $i$ and the loads of their variables, with no maximum width or maximum degree. The third
 condition is a bound by the bias of $f$ (Lemma~\ref{lem:bias}): if $m=\min(\Pr[f=1],\Pr[f=-1])>0$ then
@@ -365,13 +365,13 @@ N\le A\le\delta/(a\theta_0)$ and $\delta\le b_0=(1+u)a$, gives
 \]
 Now let $L\ge3$, so $a\le1/8$ and $\sqrt u=1/(8L)\le1/24$. Then $\theta_0\ge1-1/1536$, $\varepsilon_0<0.157$, and
 $L\varepsilon_0<0.47$, since $La$, $L\sqrt{au}=2^{-L/2}/8$ and $Lu$ decrease in $L$. Next
-$\kappa_0<1/(256L\cdot0.999)<0.0014$, so the second term is below $11.55\cdot0.0374<0.44$. Since
+$\kappa_0<1/(256L\cdot0.999)<0.00131$, so the second term is below $11.55\cdot0.0362<0.42$. Since
 $\varepsilon_0a\theta_0\le1$, the third term is at most
 \[
 \varepsilon_0\Bigl[\log_2\frac{11e}{\theta_0}+L+\log_2\frac1{\varepsilon_0}\Bigr]<0.157\cdot5+0.47+\frac1{e\ln2}<1.79.
 \]
 Finally $b_0<0.126$, and since $x\log_2(e[1+x^{-2}])$ increases on $(0,1/4]$ the last term is below
-$0.126\log_2(e\cdot64)<0.95$. Altogether $E_i/\delta<2+0.44+1.79+0.95<6$.
+$0.126\log_2(e\cdot64)<0.95$. Altogether $E_i/\delta<2+0.42+1.79+0.95<6$.
 \end{proof}
 
 For terms of width at most three the bound $2+\log_2(2e(2^w-1))<7.3$ of Section~\ref{sec:prelim} holds at a variable
