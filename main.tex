@@ -386,7 +386,7 @@ Let $f\colon\{0,1\}^n\to\{-1,1\}$, $m=\min(\Pr[f=1],\Pr[f=-1])>0$ and $r=\log_2(
 \begin{proof}
 Let $v=1-\hat f(\emptyset)^2=4m(1-m)$ be the weight off the empty set. Conditioning on whether $U$ is empty,
 $H(f)\le h_2(v)+v\log_2(2^n-1)\le v\log_2(e/v)+vn$, using $-(1-v)\log_2(1-v)\le v\log_2e$. The right side increases
-in $v$ on $(0,1]$, and $v\le4m$, so $H(f)\le4m(n+r+\log_2e-2)$. A set $S$ of $s$ vertices of the $n$-cube spans at most
+in $v$ on $(0,2^n]$ (its derivative is $n-\log_2v$), and $v\le4m\le2$, so $H(f)\le4m(n+r+\log_2e-2)$. A set $S$ of $s$ vertices of the $n$-cube spans at most
 $\frac12s\log_2s$ edges~\cite{Harper,Hart}, so at least $s(n-\log_2s)$ edges leave it; with $S$ the minority set,
 $s=m2^n$, this gives $I(f)\ge2\cdot2^{-n}s(n-\log_2s)=2mr$. Divide.
 \end{proof}
