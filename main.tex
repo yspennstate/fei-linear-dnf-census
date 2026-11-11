@@ -45,7 +45,9 @@ $\Inf_i(f)=\Pr[i\in U]$, and $I(f)=\sum_i\Inf_i(f)$. The Fourier entropy-influen
 Kalai~\cite{FK96} asks for an absolute $C$ with $H(f)\le C\,I(f)$ for every Boolean $f$. It is known for symmetric
 functions~\cite{OWZ}, for read-once formulas over gates of bounded arity~\cite{OT13} and over AND and OR
 gates~\cite{CKLS}, and for read-$k$ decision trees with $k$ fixed~\cite{WWW}; its min-entropy version is known for
-read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}. The erasure entropy (in the sense of Verd\'u and
+read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}, and Kelman, Kindler, Lifshitz, Minzer and Safra~\cite{KKLMS} show
+that the spectrum of a Boolean function of constant variance is concentrated on $2^{O(I(f)\log I(f))}$ characters,
+a weaker form of the conjecture. The erasure entropy (in the sense of Verd\'u and
 Weissman~\cite{VW08}) of $f$ at $i$ is
 \[
 E_i(f)=H\bigl(\mathbf 1[i\in U]\bigm| U\setminus\{i\}\bigr),
@@ -287,7 +289,7 @@ $Ab\theta\le\delta\le Ab$.
 \end{lemma}
 
 \begin{proof}
-The upper bound is Harris's inequality for the decreasing $N$ and the increasing $A_t$, and the union bound. For the
+The upper bound is Harris's inequality~\cite{Harris} for the decreasing $N$ and the increasing $A_t$, and the union bound. For the
 lower bound fix $t$, let $R_t$ indicate that every background term disjoint from $B_t$ fails, and let $V_t$ be the OR
 of the residual conjunctions $s\setminus B_t$ of the background terms $s$ meeting $B_t$. Each such $s$ meets $B_t$ in one
 variable, so $\Pr[V_t]\le\eta_t$, and $R_t$ and $V_t$ do not depend on $B_t$. By Harris,
@@ -503,7 +505,11 @@ Comput. Sci. 654 (2016), 92--112.
 124 (1996), 2993--3002.
 \bibitem{Harper} L.~H.~Harper, Optimal assignments of numbers to vertices, J. Soc. Indust. Appl. Math. 12 (1964),
 131--135.
+\bibitem{Harris} T.~E.~Harris, A lower bound for the critical probability in a certain percolation process, Proc.
+Cambridge Philos. Soc. 56 (1960), 13--20.
 \bibitem{Hart} S.~Hart, A note on the edges of the $n$-cube, Discrete Math. 14 (1976), 157--163.
+\bibitem{KKLMS} E.~Kelman, G.~Kindler, N.~Lifshitz, D.~Minzer, M.~Safra, Towards a proof of the
+Fourier-entropy conjecture?, Geom. Funct. Anal. 30 (2020), 1097--1138.
 \bibitem{Hod} R.~Hod, Improved lower bounds for the Fourier entropy/influence conjecture via lexicographic functions,
 arXiv:1711.00762, 2017.
 \bibitem{OT13} R.~O'Donnell, L.-Y.~Tan, A composition theorem for the Fourier entropy-influence conjecture, ICALP 2013.
