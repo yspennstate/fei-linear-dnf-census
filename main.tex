@@ -46,9 +46,9 @@ For $f\colon\{0,1\}^n\to\{-1,1\}$ write $f=\sum_S\hat f(S)\chi_S$ with $\chi_S(x
 be a random subset with $\Pr[U=S]=\hat f(S)^2$. The Fourier entropy is $H(f)=H(U)$, the influence of $i$ is
 $\Inf_i(f)=\Pr[i\in U]$, and $I(f)=\sum_i\Inf_i(f)$. The Fourier entropy-influence (FEI) conjecture of Friedgut and
 Kalai~\cite{FK96} asks for an absolute $C$ with $H(f)\le C\,I(f)$ for every Boolean $f$. It is known for symmetric
-functions~\cite{OWZ}, for read-once formulas over gates of bounded arity~\cite{OT13} and over AND and OR
-gates~\cite{CKLS}, for read-$k$ decision trees with $k$ fixed~\cite{WWW}, and for linear threshold
-functions~\cite{ShmLTF}; its min-entropy version is known for
+functions~\cite{OWZ} and for read-once formulas, over gates of bounded arity~\cite{OT13} and over AND and OR
+gates~\cite{CKLS}. It is also known for read-$k$ decision trees with $k$ fixed~\cite{WWW} and for linear threshold
+functions~\cite{ShmLTF}. Its min-entropy version is known for
 read-$k$ DNFs with $k$ fixed~\cite{Shalev,ACKSW}, and Kelman, Kindler, Lifshitz, Minzer and Safra~\cite{KKLMS} show
 that the spectrum of a Boolean function of constant variance is concentrated on $2^{O(I(f)\log I(f))}$ characters,
 a weaker form of the conjecture. For every Boolean $f$, Han~\cite{Han} proved
@@ -113,8 +113,8 @@ with one term, and $H/I\to4$ along it. The transversal designs of Section~\ref{s
 terms of equal width, give larger values: on $21$ variables, with $49$ terms of width $3$ and every variable in $7$ of
 them, $H/I=4.1345862211$ (Table~\ref{tab:td}). On these designs $\min_iE_i/\Inf_i$ stays between $2.10$ and $2.72$.
 All these values lie well below the best known lower bound $C>6.5218$ on the constant of the conjecture, from an
-explicit balanced monotone function on $18$ variables~\cite{Num26} (earlier bounds are
-in~\cite{OT13,Hod,MI26a,MI26b}), so they say nothing about $C$ itself.
+explicit balanced monotone function on $18$ variables~\cite{Num26}, so they say nothing about $C$ itself. Earlier
+lower bounds are due to O'Donnell and Tan~\cite{OT13}, Hod~\cite{Hod} and Mosaic Intelligence~\cite{MI26a,MI26b}.
 
 \subsection{Certificates and an obstruction}
 For a variable $j$ put $\lambda_j=\sum_{t\ni j}2^{-(|t|-1)}$, the sum over the terms through $j$; we call it the
