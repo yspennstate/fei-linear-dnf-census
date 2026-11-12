@@ -172,7 +172,7 @@ superadditive, it is increasing in each argument, and
 \end{equation}
 If $F$ is monotone and $f=1-2F$, let $N$ and $M$ be the indicators that $F$ vanishes at $x_i=0$ and at $x_i=1$. Then
 $h=N-M$ is the indicator that $i$ is pivotal, $\hat h(\emptyset)=\delta$, and $\hat g(T)=2\hat N(T)-\hat h(T)$ for
-$T\ne\emptyset$. We use the separation inequality of~\cite{Shm6}.
+$T\ne\emptyset$; $\Var N=\sum_{T\ne\emptyset}\hat N(T)^2$ is the variance of $N$. We use the separation inequality of~\cite{Shm6}.
 
 \begin{proposition}[{\cite[Proposition~2]{Shm6}}]\label{prop:sep}
 Let $F$ be monotone, $f=1-2F$, $\delta=\Inf_i(f)>0$. Let $\Omega$ be a family of non-empty subsets of
@@ -548,6 +548,7 @@ $\delta$ & $\Inf_i(f)=\E h^2$ & Section~\ref{sec:prelim} \\
 $p(T)$, $q(T)$ & $\hat g(T)^2$ and $\hat h(T)^2$ & Section~\ref{sec:prelim} \\
 $\Phi(a,b)$, $\eta(x)$ & $\eta(a)+\eta(b)-\eta(a+b)$, and $-x\log_2x$ & Section~\ref{sec:prelim} \\
 $N$, $M$ & the indicators that $F$ vanishes at $x_i=0$ and at $x_i=1$; $N$ is also the indicator that every term not through $i$ fails & Section~\ref{sec:prelim} \\
+$\Var N$ & the variance $\sum_{T\ne\emptyset}\hat N(T)^2$ of $N$ & Section~\ref{sec:prelim} \\
 $\Omega$, $\varepsilon$, $\kappa$ & a family of non-empty subsets of $[n]\setminus\{i\}$ and the two parameters of the separation inequality; their choice in Section~\ref{sec:mix} & Proposition~\ref{prop:sep} \\
 $v$ & $\Var f$ & Lemma~\ref{lem:rel} \\
 $\varphi(x)$ & $2x\ln2-(x^2+1)\ln(x^2+1)+x^2\ln(x^2)$ & proof of Lemma~\ref{lem:rel} \\
