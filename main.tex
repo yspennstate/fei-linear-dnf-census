@@ -1,6 +1,7 @@
 \documentclass[11pt]{amsart}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1.1in]{geometry}
+\usepackage{array,longtable,booktabs}
 \usepackage{hyperref}
 \emergencystretch=2em
 
@@ -26,7 +27,7 @@ exhaustive enumeration with certified logarithms the largest value of the ratio 
 influence and the largest value of $\min_iE_i(f)/\Inf_i(f)$, where $E_i$ is the erasure entropy at $i$. They are
 $3.8891054198\ldots$ and $3.3047013224\ldots$, and each is attained by a single class. A transversal design on $21$
 variables has $H/I=4.1346\ldots$, so neither value is the supremum over the class. We then give three sufficient
-conditions for a coordinate with $E_i\le C\,\Inf_i$ in a linear monotone DNF: a load certificate that assumes no bound
+conditions for a coordinate with $E_i\le c\,\Inf_i$, $c$ an absolute constant, in a linear monotone DNF: a load certificate that assumes no bound
 on widths or degrees, a criterion that involves the loads of the variables of a single term only, and a bound in terms
 of the bias of $f$. On the affine transversal designs with $k+2\lceil\log_2k\rceil+1$ groups of $2^k$ points each,
 all of these conditions fail at every coordinate, as do the width and variance bounds of earlier work,
@@ -38,7 +39,7 @@ while $\Pr[F=0]$ tends to zero more slowly than any exponential in the number of
 
 \maketitle
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 
 For $f\colon\{0,1\}^n\to\{-1,1\}$ write $f=\sum_S\hat f(S)\chi_S$ with $\chi_S(x)=(-1)^{\sum_{j\in S}x_j}$, and let $U$
 be a random subset with $\Pr[U=S]=\hat f(S)^2$. The Fourier entropy is $H(f)=H(U)$, the influence of $i$ is
@@ -63,7 +64,7 @@ a coordinate with $E_i(f)\le c\,\Inf_i(f)$~\cite{Shm1}.
 
 Let $F$ be a monotone DNF and $f=1-2F$. We call $F$ \emph{linear} if any two of its terms share at most one variable.
 Read-once DNFs are the linear DNFs in which every variable lies in one term. For linear DNFs whose terms all have width
-$w$ and in which every variable lies in at most $D\le2^{(1-\eta)(w-1)}$ terms, $E_i/\Inf_i=2+o(1)$ at every coordinate
+$w$ and in which every variable lies in at most $\Delta\le2^{(1-\nu)(w-1)}$ terms, $E_i/\Inf_i=2+o(1)$ at every coordinate
 as $w\to\infty$~\cite{Shm6}, and a DNF of width $w$ has a coordinate with $E_i/\Inf_i\le w+3+\log_2e$~\cite{Shm3};
 for a monotone DNF one term of width $w$ is enough (Section~\ref{sec:prelim}). This paper concerns linear monotone DNFs with no restriction on widths or degrees. Since the minimal DNF
 of a monotone function is unique, linearity is a property of the function.
@@ -79,11 +80,11 @@ $\min_iE_i/\Inf_i$ over them. Over all linear monotone functions with at most ei
 \[
 3.30470132244542\le\max\min_i\frac{E_i(f)}{\Inf_i(f)}\le3.30470132245649,
 \]
-attained only by $F=y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1\vee z_1z_2\vee z_2z_3\vee z_3z_4\vee z_4z_1$, and
+attained only by $F=x_1x_2\vee x_2x_3\vee x_3x_4\vee x_4x_1\vee x_5x_6\vee x_6x_7\vee x_7x_8\vee x_8x_5$, and
 \[
 3.88910541981418\le\max\frac{H(f)}{I(f)}\le3.88910541981709,
 \]
-attained only by $F=x_1\vee x_2\vee x_3\vee x_4\vee y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1$.
+attained only by $F=x_1\vee x_2\vee x_3\vee x_4\vee x_5x_6\vee x_6x_7\vee x_7x_8\vee x_8x_5$.
 \end{theorem}
 
 \begin{table}[h]
@@ -134,8 +135,8 @@ $H(f)/I(f)<2+2n/\log_2(1/m)$, for every Boolean $f$ on $n$ variables.
 
 Section~\ref{sec:td} shows that these conditions do not combine into a proof of the FEI conjecture for linear monotone
 DNFs. For $Q$ a prime power and $w\le Q$ let $\mathrm{TD}(w,Q)$ be the DNF whose variables are the points of
-$A\times\mathbb F_Q$ for a $w$-set $A\subseteq\mathbb F_Q$ and whose terms are the graphs of the affine maps
-$x\mapsto ax+b$ restricted to $A$.
+$X\times\mathbb F_Q$ for a $w$-set $X\subseteq\mathbb F_Q$ and whose terms are the graphs of the affine maps
+$\xi\mapsto\sigma\xi+\tau$ restricted to $X$.
 
 \begin{theorem}\label{thm:td}
 Let $Q=2^k$ and $w=k+2\lceil\log_2k\rceil+1$, and let $F_k=\mathrm{TD}(w,Q)$. As $k\to\infty$:
@@ -153,7 +154,7 @@ they are small (Table~\ref{tab:td}).
 
 \section{Preliminaries}\label{sec:prelim}
 
-We use the notation of~\cite{Shm6}. Fix $i$ and write $f^{(b)}$ for the restriction $x_i=b$. Put
+We use the notation of~\cite{Shm6}. Fix $i$ and write $f^{(0)}$ and $f^{(1)}$ for the restrictions $x_i=0$ and $x_i=1$. Put
 $g=\tfrac12(f^{(0)}+f^{(1)})$ and $h=\tfrac12(f^{(0)}-f^{(1)})$, so that $\hat g(T)=\hat f(T)$ and $\hat
 h(T)=\hat f(T\cup\{i\})$ for $T\subseteq[n]\setminus\{i\}$, and $\E h^2=\Inf_i(f)=:\delta$. With $p(T)=\hat g(T)^2$,
 $q(T)=\hat h(T)^2$ and
@@ -190,19 +191,19 @@ Let $F$ be monotone, $f=1-2F$, $v=\Var f$ and $\delta=\Inf_i(f)>0$. Then
 
 \begin{proof}
 First, $\Phi(a,b)\le2\sqrt{ab}$. By symmetry and homogeneity it suffices to take $b=1$ and $a=x^2$ with $x\ge1$. Put
-$\ell(x)=2x\ln2-(x^2+1)\ln(x^2+1)+x^2\ln(x^2)$, which is $\ln2$ times $2x-\Phi(x^2,1)$. Then $\ell(1)=0$ and
-$\ell'(x)=2\ln2-2x\ln(1+x^{-2})$. The function $x\ln(1+x^{-2})$ decreases on $[1,\infty)$: its derivative is
+$\varphi(x)=2x\ln2-(x^2+1)\ln(x^2+1)+x^2\ln(x^2)$, which is $\ln2$ times $2x-\Phi(x^2,1)$. Then $\varphi(1)=0$ and
+$\varphi'(x)=2\ln2-2x\ln(1+x^{-2})$. The function $x\ln(1+x^{-2})$ decreases on $[1,\infty)$: its derivative is
 $\ln(1+y)-2y/(1+y)$ with $y=x^{-2}\in(0,1]$, which is non-positive because it vanishes at $y=0$ and has derivative
-$-(1-y)/(1+y)^2\le0$. So $\ell'\ge\ell'(1)=0$ and $\ell\ge0$.
+$-(1-y)/(1+y)^2\le0$. So $\varphi'\ge\varphi'(1)=0$ and $\varphi\ge0$.
 
 At $T=\emptyset$, $p=(\E f)^2$ and $q=\delta^2$, so the term is at most $2|\E f|\delta$. By Parseval the non-empty
-sets carry $P=\sum_{T\neq\emptyset}p(T)=v-\delta$ and $Q=\sum_{T\ne\emptyset}q(T)=\delta-\delta^2$. By superadditivity
+sets carry $p_+=\sum_{T\neq\emptyset}p(T)=v-\delta$ and $q_+=\sum_{T\ne\emptyset}q(T)=\delta-\delta^2$. By superadditivity
 and~\eqref{eq:phiq},
 \[
-\sum_{T\ne\emptyset}\Phi(p,q)\le\Phi(P,Q)\le Q\log_2\frac{e(v-\delta^2)}{Q}\le Q\log_2\frac{ev}Q\le\delta\log_2\frac{ev}\delta,
+\sum_{T\ne\emptyset}\Phi(p,q)\le\Phi(p_+,q_+)\le q_+\log_2\frac{e(v-\delta^2)}{q_+}\le q_+\log_2\frac{ev}{q_+}\le\delta\log_2\frac{ev}\delta,
 \]
-since $x\mapsto x\log_2(ev/x)$ increases on $(0,v]$ and $Q\le\delta\le v$; here $\delta\le v$ because
-$\delta\le2\mu\le4\mu(1-\mu)=v$ with $\mu=\min(\Pr[f=1],\Pr[f=-1])\le1/2$. If $\delta=1$ the non-empty part vanishes.
+since $x\mapsto x\log_2(ev/x)$ increases on $(0,v]$ and $q_+\le\delta\le v$; here $\delta\le v$ because
+$\delta\le2m\le4m(1-m)=v$ with $m=\min(\Pr[f=1],\Pr[f=-1])\le1/2$. If $\delta=1$ the non-empty part vanishes.
 \end{proof}
 
 For comparison, \cite{Shm3} has $2+\log_2e+\log_2(1+v/\delta)$ for every Boolean $f$. The proof of the width bound
@@ -227,9 +228,9 @@ canonical form. Two families with the same canonical form are related by the per
 
 \subsection{Completeness}
 Two independent counts confirm that no class is missing or repeated. The number of labelled linear hypergraphs on $[n]$
-with all edges of size at least two, isolated vertices allowed, is computed by a recursion on pairs: choose an uncovered pair $uv$; either no edge
-of size at least three contains it, and then $uv$ is either an edge or not, or exactly one such edge does, and its
-pairs are removed. This is compared with $\sum n!/|\mathrm{Aut}(H)|$ over the census, with $|\mathrm{Aut}(H)|$ counted
+with all edges of size at least two, isolated vertices allowed, is computed by a recursion on pairs: choose an uncovered pair $\{j,j'\}$; either no edge
+of size at least three contains it, and then $\{j,j'\}$ is either an edge or not, or exactly one such edge does, and its
+pairs are removed. This is compared with $\sum_Gn!/|\mathrm{Aut}(G)|$ over the hypergraphs $G$ of the census, with $|\mathrm{Aut}(G)|$ counted
 at the canonical leaves. Adding a singleton term at each isolated vertex is a bijection onto the functions with
 exactly $n$ relevant variables, so both counts are the third column of Table~\ref{tab:census}, and they agree for every
 $n\le8$. The census for $n\le5$ was also compared with a brute-force enumeration of all monotone functions.
@@ -243,8 +244,8 @@ precision of double arithmetic.
 
 \subsection{Certified values}
 For each function the Walsh transform of $f=1-2F$ is computed in integers, so every $p(T)$ and $q(T)$ is an exact
-dyadic rational with denominator $4^n$, and $H$, $I$ and every $E_i$ are integer combinations of $\log_2k$ for
-integers $k\le4^n$, divided by $4^n$. Enclosures of $\log_2k$ are computed in integer arithmetic from
+dyadic rational with denominator $4^n$, and $H$, $I$ and every $E_i$ are integer combinations of $\log_2K$ for
+integers $K\le4^n$, divided by $4^n$. Enclosures of $\log_2K$ are computed in integer arithmetic from
 $\ln x=2\sum_{j\ge0}z^{2j+1}/(2j+1)$ with $z=(x-1)/(x+1)\le1/3$ and a geometric bound on the tail, rounded outwards to
 units of $2^{-52}$; sums are accumulated in signed $128$-bit integers and every floating conversion and division is
 followed by an outward step. This encloses $H/I$ and every $E_i/\Inf_i$ for every function in the census, and the
@@ -254,19 +255,19 @@ are also available as rational combinations of logarithms of primes.
 
 \subsection{The maximisers}
 The maximiser of $\min_iE_i/\Inf_i$ is the OR of two copies, on disjoint variables, of the cycle DNF
-$C_4=y_1y_2\vee y_2y_3\vee y_3y_4\vee y_4y_1$; this OR has $H/I=3.6125175459$, against $2.2169171867$ for $C_4$
+$\mathrm{CYC}_4=x_1x_2\vee x_2x_3\vee x_3x_4\vee x_4x_1$; this OR has $H/I=3.6125175459$, against $2.2169171867$ for $\mathrm{CYC}_4$
 alone. The maximiser of $H/I$ is the OR of
-$\mathrm{OR}_4$ and $C_4$ on disjoint variables. Both maxima grow at every step from $n=4$ to $n=8$, so the census
+$\mathrm{OR}_4$ and $\mathrm{CYC}_4$ on disjoint variables. Both maxima grow at every step from $n=4$ to $n=8$, so the census
 gives no indication of the suprema.
 
 \section{The load certificate}\label{sec:mix}
 
 Let $F$ be a linear monotone DNF and $i$ a variable that lies in no singleton term. Let $t$ range over the terms
-through $i$, put $B_t=t\setminus\{i\}$, $L_t=|B_t|\ge1$, $a_t=2^{-L_t}$, and $b=\sum_ta_t=\lambda_i$. By linearity the
+through $i$, put $B_t=t\setminus\{i\}$, $L_t=|B_t|\ge1$, $a_t=2^{-L_t}$, so that $\lambda_i=\sum_ta_t$. By linearity the
 sets $B_t$ are pairwise disjoint. A \emph{background term} is a term not containing $i$. For a variable $j\ne i$ put
 \[
-\ell_j=\sum_{s\ni j,\ i\notin s}2^{-(|s|-1)},\qquad \eta_t=\sum_{j\in B_t}\ell_j,\qquad
-\theta=1-\frac1b\Bigl[\sum_ta_t\eta_t+\sum_{s<t}a_sa_t\Bigr].
+\ell_j=\sum_{s\ni j,\ i\notin s}2^{-(|s|-1)},\qquad \mu_t=\sum_{j\in B_t}\ell_j,\qquad
+\theta=1-\frac1{\lambda_i}\Bigl[\sum_ta_t\mu_t+\sum_{t'<t}a_{t'}a_t\Bigr].
 \]
 For $j\in B_t$, a term through $j$ other than $t$ does not contain $i$, since it would share two variables with $t$;
 so $\ell_j=\lambda_j-a_t$. For integers $1\le k_t\le L_t$ put
@@ -276,14 +277,14 @@ so $\ell_j=\lambda_j-a_t$. For integers $1\le k_t\le L_t$ put
 \]
 and
 \[
-\varepsilon=\min\Bigl(1,\sum_t\gamma_t\Bigr),\qquad \kappa=\frac{\sum_t\alpha_t}{b\theta}.
+\varepsilon=\min\Bigl(1,\sum_t\gamma_t\Bigr),\qquad \kappa=\frac{\sum_t\alpha_t}{{\lambda_i}\theta}.
 \]
 
 \begin{proposition}\label{prop:mix}
-If $\theta>0$, every denominator in $\alpha_t$ is positive, and $b\le1/4$, then
+If $\theta>0$, every denominator in $\alpha_t$ is positive, and ${\lambda_i}\le1/4$, then
 \[
 \Bigl|\frac{E_i(f)}{\Inf_i(f)}-2\Bigr|\le2\varepsilon+\frac8{\ln2}\sqrt\kappa
-+\varepsilon\log_2\Bigl(e\Bigl[3+\frac8{\varepsilon b\theta}\Bigr]\Bigr)+b\log_2\bigl(e[1+b^{-2}]\bigr).
++\varepsilon\log_2\Bigl(e\Bigl[3+\frac8{\varepsilon {\lambda_i}\theta}\Bigr]\Bigr)+{\lambda_i}\log_2\bigl(e[1+{\lambda_i}^{-2}]\bigr).
 \]
 \end{proposition}
 
@@ -293,17 +294,17 @@ $A=\E N$, $A_t$ the indicator that all of $B_t$ equal $1$, and $h=N\cdot\mathbf 
 $\delta=\E h=\Inf_i(f)$.
 
 \begin{lemma}\label{lem:m1}
-$Ab\theta\le\delta\le Ab$.
+$A{\lambda_i}\theta\le\delta\le A{\lambda_i}$.
 \end{lemma}
 
 \begin{proof}
 The upper bound is Harris's inequality~\cite{Harris} for the decreasing $N$ and the increasing $A_t$, and the union bound. For the
 lower bound fix $t$, let $R_t$ indicate that every background term disjoint from $B_t$ fails, and let $V_t$ be the OR
 of the residual conjunctions $s\setminus B_t$ of the background terms $s$ meeting $B_t$. Each such $s$ meets $B_t$ in one
-variable, so $\Pr[V_t]\le\eta_t$, and $R_t$ and $V_t$ do not depend on $B_t$. By Harris,
-$\Pr[N,A_t]=a_t\Pr[R_t,\overline{V_t}]\ge a_t\Pr[R_t](1-\eta_t)\ge a_tA(1-\eta_t)$; if $\eta_t>1$ this holds
-trivially. For $s\ne t$, $\Pr[N,A_s,A_t]\le Aa_sa_t$, since $B_s$ and $B_t$ are disjoint. Bonferroni's inequality gives
-$\delta\ge A\sum_ta_t(1-\eta_t)-A\sum_{s<t}a_sa_t=Ab\theta$.
+variable, so $\Pr[V_t]\le\mu_t$, and $R_t$ and $V_t$ do not depend on $B_t$. By Harris,
+$\Pr[N,A_t]=a_t\Pr[R_t,\overline{V_t}]\ge a_t\Pr[R_t](1-\mu_t)\ge a_tA(1-\mu_t)$; if $\mu_t>1$ this holds
+trivially. For $t'\ne t$, $\Pr[N,A_{t'},A_t]\le Aa_{t'}a_t$, since $B_{t'}$ and $B_t$ are disjoint. Bonferroni's inequality gives
+$\delta\ge A\sum_ta_t(1-\mu_t)-A\sum_{t'<t}a_{t'}a_t=A{\lambda_i}\theta$.
 \end{proof}
 
 Let $\Omega$ be the family of sets $T\subseteq[n]\setminus\{i\}$ with $|T\cap B_t|\ge k_t$ for some $t$.
@@ -313,7 +314,7 @@ $\sum_{T\notin\Omega}\hat h(T)^2\le\varepsilon\delta$.
 \end{lemma}
 
 \begin{proof}
-Order the terms through $i$ and put $h_t=NA_t\prod_{u<t}(1-A_u)$. These have disjoint supports and sum to $h$, so
+Order the terms through $i$ and put $h_t=NA_t\prod_{t'<t}(1-A_{t'})$. These have disjoint supports and sum to $h$, so
 $\sum_t\|h_t\|_2^2=\delta$. As in~\cite[Lemma~4]{Shm6}, $h_t=A_t\Psi_t$ with $\Psi_t$ independent of $B_t$, so the
 weight of $\hat h_t^2$ on sets meeting $B_t$ in exactly $r$ variables is $\binom{L_t}ra_t\|h_t\|_2^2$, and the weight
 of $\hat h_t^2$ off $\Omega$ is at most $\gamma_t\|h_t\|_2^2$. By the triangle inequality and Cauchy--Schwarz,
@@ -329,22 +330,21 @@ $\sum_{T\in\Omega}\hat N(T)^2\le A\sum_t\alpha_t$.
 
 \begin{proof}
 Every $T\in\Omega$ contains a $k_t$-subset $J$ of some $B_t$, and $\sum_{T\supseteq J}\hat N(T)^2=\|D_JN\|_2^2$. Fix
-such $J$, $k=k_t$. A background term meets $J$ in at most one variable. Let $R_J$ indicate that every background term
-avoiding $J$ fails, and $Q_j$, for $j\in J$, the OR of the residual conjunctions $s\setminus\{j\}$ of the background terms
-$s\ni j$; then $\Pr[Q_j]\le\ell_j$, and as in~\cite[Lemma~5]{Shm6}, $\|D_JN\|_2^2=4^{-k}\Pr[R_J,\bigwedge_jQ_j]\le
-4^{-k}\Pr[R_J]\Pr[\bigwedge_jQ_j]$. For $\bigwedge_jQ_j$ a background term $s_j\ni j$ must have its residual conjunction
+such $J$. A background term meets $J$ in at most one variable. Let $R_J$ indicate that every background term
+avoiding $J$ fails, and $Y_j$, for $j\in J$, the OR of the residual conjunctions $s\setminus\{j\}$ of the background terms
+$s\ni j$; then $\Pr[Y_j]\le\ell_j$, and as in~\cite[Lemma~5]{Shm6}, $\|D_JN\|_2^2=4^{-|J|}\Pr[R_J,\bigwedge_jY_j]\le
+4^{-|J|}\Pr[R_J]\Pr[\bigwedge_jY_j]$. For $\bigwedge_jY_j$ a background term $s_j\ni j$ must have its residual conjunction
 satisfied for each $j$. The $s_j$ are distinct, two of the residual sets share at most one variable, so their union has
-at least $\sum_j(|s_j|-1)-\binom k2$ variables, and summing over the choices gives $\Pr[\bigwedge_jQ_j]\le2^{\binom
-k2}\prod_{j\in J}\ell_j$. Finally $A\ge\Pr[R_J]-\sum_j\frac12\Pr[R_J,Q_j]\ge\Pr[R_J](1-\frac12\sum_j\ell_j)$ by Harris,
-since $x_j$ is independent of $R_J$ and $Q_j$. Hence $\|D_JN\|_2^2$ is at most $A$ times the summand of $\alpha_t$
+at least $\sum_j(|s_j|-1)-\binom{|J|}2$ variables, and summing over the choices gives $\Pr[\bigwedge_jY_j]\le2^{\binom{|J|}2}\prod_{j\in J}\ell_j$. Finally $A\ge\Pr[R_J]-\sum_j\frac12\Pr[R_J,Y_j]\ge\Pr[R_J](1-\frac12\sum_j\ell_j)$ by Harris,
+since $x_j$ is independent of $R_J$ and $Y_j$. Hence $\|D_JN\|_2^2$ is at most $A$ times the summand of $\alpha_t$
 indexed by $J$; sum over $J$ and $t$.
 \end{proof}
 
 \begin{proof}[Proof of Proposition~\ref{prop:mix}]
 By Lemmas~\ref{lem:m3} and~\ref{lem:m1}, $\sum_\Omega\hat N^2\le A\sum_t\alpha_t\le\kappa\delta$, and by
 Lemma~\ref{lem:m2} the first hypothesis of Proposition~\ref{prop:sep} holds with $\varepsilon$; note $\varepsilon\ge
-b>0$ because $\gamma_t\ge a_t$. The sets in $\Omega$ are non-empty. In the upper bound of Proposition~\ref{prop:sep},
-$\Var N\le A\le\delta/(b\theta)$, and $\delta\le Ab\le b\le1/4$; the function $x\log_2(e[1+x^{-2}])$ is increasing on
+{\lambda_i}>0$ because $\gamma_t\ge a_t$. The sets in $\Omega$ are non-empty. In the upper bound of Proposition~\ref{prop:sep},
+$\Var N\le A\le\delta/({\lambda_i}\theta)$, and $\delta\le A{\lambda_i}\le {\lambda_i}\le1/4$; the function $x\log_2(e[1+x^{-2}])$ is increasing on
 $(0,1/4]$~\cite{Shm6}. The lower bound of Proposition~\ref{prop:sep} is within the stated error.
 \end{proof}
 
@@ -353,7 +353,7 @@ $(0,1/4]$~\cite{Shm6}. The lower bound of Proposition~\ref{prop:sep} is within t
 \begin{proof}[Proof of Theorem~\ref{thm:local}]
 Put $a=2^{-L}$, $u=1/(64L^2)$, $\theta_0=1-Lua$, and fix $i\in t$. The terms through $i$ other than $t$ have total
 weight $\lambda_i-a\le ua$, and every $j\in t\setminus\{i\}$ has $\ell_j=\lambda_j-a\le ua$. Let $N$, $A$, $A_t$ and
-$h$ be as in Section~\ref{sec:mix}, and split $h=h_t+h'$ with $h_t=NA_t$, $h'=N(1-A_t)\mathbf 1[\bigvee_{s\ne t}A_s]$,
+$h$ be as in Section~\ref{sec:mix}, and split $h=h_t+h'$ with $h_t=NA_t$, $h'=N(1-A_t)\mathbf 1[\bigvee_{t'\ne t}A_{t'}]$,
 which have disjoint supports. By Harris and the proof of Lemma~\ref{lem:m1},
 \[
 \|h_t\|_2^2\le Aa,\qquad\|h'\|_2^2\le Aua,\qquad Aa\theta_0\le\delta\le A(1+u)a.
@@ -364,12 +364,12 @@ off $\Omega$ is $a\|h_t\|_2^2\le Aa^2$, so
 \Bigl(\sum_{T\notin\Omega}\hat h(T)^2\Bigr)^{1/2}\le\sqrt{Aa}\,(\sqrt a+\sqrt u),\qquad
 \sum_{T\notin\Omega}\hat h(T)^2\le\varepsilon_0\delta,\quad\varepsilon_0=\frac{(\sqrt a+\sqrt u)^2}{\theta_0}.
 \]
-The proof of Lemma~\ref{lem:m3} with $k=1$ for the single block $t\setminus\{i\}$ gives $\sum_\Omega\hat N^2\le
+The proof of Lemma~\ref{lem:m3} with $k_t=1$ for the single block $t\setminus\{i\}$ gives $\sum_\Omega\hat N^2\le
 A\,Lua/(4(1-ua/2))\le\kappa_0\delta$ with $\kappa_0=Lu/(4\theta_0(1-ua/2))$. Proposition~\ref{prop:sep}, with $\Var
-N\le A\le\delta/(a\theta_0)$ and $\delta\le b_0=(1+u)a$, gives
+N\le A\le\delta/(a\theta_0)$ and $\delta\le \delta_0=(1+u)a$, gives
 \[
 \frac{E_i}{\delta}\le2+\frac8{\ln2}\sqrt{\kappa_0}+\varepsilon_0\log_2\Bigl(e\Bigl[3+\frac{8}{\varepsilon_0a\theta_0}\Bigr]\Bigr)
-+b_0\log_2\bigl(e[1+b_0^{-2}]\bigr).
++\delta_0\log_2\bigl(e[1+\delta_0^{-2}]\bigr).
 \]
 Now let $L\ge3$, so $a\le1/8$ and $\sqrt u=1/(8L)\le1/24$. Then $\theta_0\ge1-1/1536$, $\varepsilon_0<0.157$, and
 $L\varepsilon_0<0.47$, since $La$, $L\sqrt{au}=2^{-L/2}/8$ and $Lu$ decrease in $L$. Next
@@ -378,7 +378,7 @@ $\varepsilon_0a\theta_0\le1$, the third term is at most
 \[
 \varepsilon_0\Bigl[\log_2\frac{11e}{\theta_0}+L+\log_2\frac1{\varepsilon_0}\Bigr]<0.157\cdot5+0.47+\frac1{e\ln2}<1.79.
 \]
-Finally $b_0<0.126$, and since $x\log_2(e[1+x^{-2}])$ increases on $(0,1/4]$ the last term is below
+Finally $\delta_0<0.126$, and since $x\log_2(e[1+x^{-2}])$ increases on $(0,1/4]$ the last term is below
 $0.126\log_2(e\cdot64)<0.95$. Altogether $E_i/\delta<2+0.42+1.79+0.95<6$.
 \end{proof}
 
@@ -388,28 +388,28 @@ of largest influence in the term, with no hypothesis on loads.
 \section{Bias}\label{sec:bias}
 
 \begin{lemma}\label{lem:bias}
-Let $f\colon\{0,1\}^n\to\{-1,1\}$, $m=\min(\Pr[f=1],\Pr[f=-1])>0$ and $r=\log_2(1/m)$. Then
+Let $f\colon\{0,1\}^n\to\{-1,1\}$, $m=\min(\Pr[f=1],\Pr[f=-1])>0$ and $\beta=\log_2(1/m)$. Then
 \[
-\frac{H(f)}{I(f)}\le2+\frac{2(n-2+\log_2e)}r.
+\frac{H(f)}{I(f)}\le2+\frac{2(n-2+\log_2e)}\beta.
 \]
 \end{lemma}
 
 \begin{proof}
 Let $v=1-\hat f(\emptyset)^2=4m(1-m)$ be the weight off the empty set. Conditioning on whether $U$ is empty,
-$H(f)\le h_2(v)+v\log_2(2^n-1)\le v\log_2(e/v)+vn$, using $-(1-v)\log_2(1-v)\le v\log_2e$. The right side increases
-in $v$ on $(0,2^n]$ (its derivative is $n-\log_2v$), and $v\le4m\le2$, so $H(f)\le4m(n+r+\log_2e-2)$. A set $S$ of $s$ vertices of the $n$-cube spans at most
-$\frac12s\log_2s$ edges~\cite{Harper,Hart}, so at least $s(n-\log_2s)$ edges leave it; with $S$ the minority set,
-$s=m2^n$, this gives $I(f)\ge2\cdot2^{-n}s(n-\log_2s)=2mr$. Divide.
+$H(f)\le-v\log_2v-(1-v)\log_2(1-v)+v\log_2(2^n-1)\le v\log_2(e/v)+vn$, using $-(1-v)\log_2(1-v)\le v\log_2e$. The right side increases
+in $v$ on $(0,2^n]$ (its derivative is $n-\log_2v$), and $v\le4m\le2$, so $H(f)\le4m(n+\beta+\log_2e-2)$. A set $W$ of vertices of the $n$-cube spans at most
+$\frac12|W|\log_2|W|$ edges~\cite{Harper,Hart}, so at least $|W|(n-\log_2|W|)$ edges leave it; with $W$ the minority set,
+$|W|=m2^n$, this gives $I(f)\ge2\cdot2^{-n}|W|(n-\log_2|W|)=2m\beta$. Divide.
 \end{proof}
 
-For $\mathrm{AND}_n$ one has $m=2^{-n}$, $r=n$, and both sides tend to $4$. The bound is useful only when $m$ is
-exponentially small in $n$: if $m\le2^{-\beta n}$ it gives $H/I<2+2/\beta$.
+For $\mathrm{AND}_n$ one has $m=2^{-n}$, $\beta=n$, and both sides tend to $4$. The bound is useful only when $m$ is
+exponentially small in $n$: if $\beta\ge n/10$, say, it gives $H/I<22$.
 
 \section{Transversal designs}\label{sec:td}
 
-Let $Q$ be a prime power, $A\subseteq\mathbb F_Q$ with $|A|=w$, and let $\mathrm{TD}(w,Q)$ have variables $(x,y)\in
-A\times\mathbb F_Q$ and terms $t_{a,b}=\{(x,ax+b):x\in A\}$ for $a,b\in\mathbb F_Q$. It has $n=wQ$ variables and $Q^2$
-terms of width $w$; the point $(x,y)$ lies on the $Q$ terms with $b=y-ax$; two distinct affine maps agree at most once,
+Let $Q$ be a prime power, $X\subseteq\mathbb F_Q$ with $|X|=w$, and let $\mathrm{TD}(w,Q)$ have variables $(\xi,\zeta)\in
+X\times\mathbb F_Q$ and terms $t_{\sigma,\tau}=\{(\xi,\sigma\xi+\tau):\xi\in X\}$ for $\sigma,\tau\in\mathbb F_Q$. It has $n=wQ$ variables and $Q^2$
+terms of width $w$; the point $(\xi,\zeta)$ lies on the $Q$ terms with $\tau=\zeta-\sigma\xi$; two distinct affine maps agree at most once,
 so the DNF is linear. Every variable has load $\lambda=Q2^{-(w-1)}$, and every variable of a term $t$ through $i$, other
 than $i$, has $\ell_j=(Q-1)2^{-(w-1)}$.
 
@@ -423,7 +423,7 @@ $w$ & $Q$ & $n$ & terms & $\Pr[F=0]$ & $H/I$ & $\min_iE_i/\Inf_i$ & $\max_iE_i/\
 3 & 7 & 21 & 49 & 0.0408 & 4.1345862211 & 2.5335124504 & 2.5335124504\\
 5 & 5 & 25 & 25 & 0.5332 & 3.8799716886 & 2.2003373077 & 2.2003373077\\
 \end{tabular}
-\caption{$\mathrm{TD}(w,Q)$ with $A=\{0,\dots,w-1\}$, from exact Walsh transforms.}\label{tab:td}
+\caption{$\mathrm{TD}(w,Q)$ with $X=\{0,\dots,w-1\}$, from exact Walsh transforms.}\label{tab:td}
 \end{table}
 
 \begin{proof}[Proof of Theorem~\ref{thm:td}]
@@ -432,7 +432,7 @@ $\ell=(Q-1)a<\lambda$; note $w\le Q$ for $k\ge3$ and $L/k\to1$.
 
 (1) $\lambda_j/a=Q$, far above $1+1/(64L^2)$.
 
-(2) Fix $i$. It lies in $d=Q$ terms with $L_t=L$, so $b=\lambda$, $\eta_t=L\ell$ and
+(2) Fix $i$. It lies in $Q$ terms, all with $L_t=L$, so $\lambda_i=\lambda$, $\mu_t=L\ell$ and
 $\theta=1-L\ell-(Q-1)a/2=1-O(1/k)$. Choose thresholds $k_t$. If at least $Q/2$ of them are at least $4$, then
 $\sum_t\gamma_t\ge\frac Q2a\binom L3=\frac\lambda2\binom L3\ge\frac{L^3(1-o(1))}{48k^2}\to\infty$, so eventually
 $\varepsilon=1$ and the third term of Proposition~\ref{prop:mix} is at least $\log_2(8e/\lambda)\to\infty$.
@@ -444,12 +444,12 @@ $\alpha_t=\binom Lr2^{\binom r2-2r}\ell^r/(1-r\ell/2)$, so
 Since $\ell\ge\lambda/2$ and $1/a=Q/\lambda$, $\alpha^{(r)}/a$ is of order $\binom Lr\lambda^{r-1}Q$, that is $LQ$,
 $Q$ and $Q/L$ for $r=1,2,3$ up to bounded factors. So $\kappa\to\infty$.
 
-(3) Let $Z$ be the number of satisfied terms and $p=2^{-w}$. Then $\E Z=Q^2p\ge2^k/(8k^2)\to\infty$. Terms with
-disjoint variables are independent; two intersecting terms have covariance $2^{-(2w-1)}-p^2=p^2$, and each term meets
+(3) Let $Z$ be the number of satisfied terms and $\rho=2^{-w}$. Then $\E Z=Q^2\rho\ge2^k/(8k^2)\to\infty$. Terms with
+disjoint variables are independent; two intersecting terms have covariance $2^{-(2w-1)}-\rho^2=\rho^2$, and each term meets
 $w(Q-1)$ others. Hence $\Var Z/(\E Z)^2\le1/\E Z+w/Q\to0$, and $\Pr[F=0]=\Pr[Z=0]\to0$ by Chebyshev's inequality. On
-the other hand the failures of the terms are decreasing events, so by Harris $\Pr[F=0]\ge(1-p)^{Q^2}$ and
+the other hand the failures of the terms are decreasing events, so by Harris $\Pr[F=0]\ge(1-\rho)^{Q^2}$ and
 \[
-\frac{\log_2(1/\Pr[F=0])}{n}\le\frac Qw\log_2\frac1{1-p}=O\Bigl(\frac{2^{k-w}}w\Bigr)=O(k^{-3}).
+\frac{\log_2(1/\Pr[F=0])}{n}\le\frac Qw\log_2\frac1{1-\rho}=O\Bigl(\frac{2^{k-w}}w\Bigr)=O(k^{-3}).
 \]
 Once $\Pr[F=0]<1/2$ the minority value is $F=0$, so $m=\Pr[F=0]$, and the bound of Lemma~\ref{lem:bias}, which
 exceeds $2(n-1)/\log_2(1/\Pr[F=0])$, tends to infinity.
@@ -501,6 +501,78 @@ concerning its dissemination.
 Code and outputs: \url{https://github.com/yspennstate/fei-linear-dnf-census}.
 The paper is part of the Math Brain project, whose public repository is
 \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+
+\appendix
+\section{Notation}\label{app:notation}
+
+Symbols are listed roughly in the order in which they first appear, and the last column gives that place. The letters $a$ and $b$ are also the arguments of $\Phi$, $x$ and $y$ are real variables in the proof of Lemma~\ref{lem:rel}, and $j$ and $z$ are the index and the variable of the logarithm series in Section~\ref{sec:census}.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.54\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}@{}}
+\toprule
+Symbol & Meaning & First appears \\
+\midrule
+\endhead
+$f$, $n$ & a Boolean function $\{0,1\}^n\to\{-1,1\}$, and its number of variables & Section~\ref{sec:intro} \\
+$x$, $x_j$ & a point of $\{0,1\}^n$, and its $j$-th coordinate; the $x_j$ are also the variables of a DNF & Section~\ref{sec:intro} \\
+$i$, $j$ & coordinates; $i$ is the coordinate under study & Section~\ref{sec:intro} \\
+$S$, $\hat f(S)$, $\chi_S$ & a set of coordinates, the Fourier coefficient of $f$ at $S$, and the character $(-1)^{\sum_{j\in S}x_j}$ & Section~\ref{sec:intro} \\
+$U$ & the spectral sample, a random set with $\Pr[U=S]=\hat f(S)^2$ & Section~\ref{sec:intro} \\
+$H(\cdot)$, $H(f)$ & Shannon entropy in bits, and the Fourier entropy $H(U)$ & Section~\ref{sec:intro} \\
+$\Inf_i(f)$, $I(f)$ & the influence $\Pr[i\in U]$ of the coordinate $i$, and the total influence $\sum_i\Inf_i(f)$ & Section~\ref{sec:intro} \\
+$C$ & the constant in the FEI conjecture $H(f)\le C\,I(f)$ & Section~\ref{sec:intro} \\
+$E_i(f)$ & the erasure entropy $H(\mathbf 1[i\in U]\mid U\setminus\{i\})$ & Section~\ref{sec:intro} \\
+$\mathbf 1[\cdot]$ & the indicator of an event & Section~\ref{sec:intro} \\
+$c$ & an absolute constant with $E_i(f)\le c\,\Inf_i(f)$ at some coordinate & Section~\ref{sec:intro} \\
+$F$ & a monotone DNF, with $f=1-2F$; $F$ is linear if two of its terms share at most one variable & Section~\ref{sec:intro} \\
+$t$, $|t|$, $w$ & a term of $F$, viewed as a set of variables, and its width; $w$ is a width & Section~\ref{sec:intro} \\
+$\Delta$, $\nu$ & the largest number of terms through a variable, and the exponent in the hypothesis $\Delta\le2^{(1-\nu)(w-1)}$ of~\cite{Shm6} & Section~\ref{sec:intro} \\
+$e$ & the base of the natural logarithm & Section~\ref{sec:intro} \\
+$\mathrm{AND}_n$, $\mathrm{OR}_4$, $\mathrm{CYC}_4$ & the AND of $n$ variables, the OR of four variables, and the cycle DNF $x_1x_2\vee x_2x_3\vee x_3x_4\vee x_4x_1$ & Section~\ref{sec:intro} \\
+$\lambda_j$ & the load $\sum_{t\ni j}2^{-(|t|-1)}$ of the variable $j$ & Section~\ref{sec:intro} \\
+$L$ & the width of a term minus one; in Section~\ref{sec:td}, $L=w-1$ & Theorem~\ref{thm:local} \\
+$m$ & $\min(\Pr[f=1],\Pr[f=-1])$, the probability of the minority value & Section~\ref{sec:intro} \\
+$Q$, $\mathbb F_Q$ & a prime power, and the field with $Q$ elements & Section~\ref{sec:intro} \\
+$X$, $(\xi,\zeta)$ & a set of $w$ elements of $\mathbb F_Q$, and a variable of the design, a point of $X\times\mathbb F_Q$ & Section~\ref{sec:intro} \\
+$\sigma$, $\tau$, $t_{\sigma,\tau}$ & the slope and the intercept of an affine map, and the term $\{(\xi,\sigma\xi+\tau):\xi\in X\}$ & Section~\ref{sec:intro} \\
+$\mathrm{TD}(w,Q)$ & the transversal-design DNF whose terms are the $t_{\sigma,\tau}$ & Section~\ref{sec:intro} \\
+$k$, $F_k$ & the exponent in $Q=2^k$, and the design $\mathrm{TD}(w,Q)$ with $w=k+2\lceil\log_2k\rceil+1$ & Theorem~\ref{thm:td} \\
+$f^{(0)}$, $f^{(1)}$ & the restrictions of $f$ to $x_i=0$ and to $x_i=1$ & Section~\ref{sec:prelim} \\
+$g$, $h$ & $\tfrac12(f^{(0)}+f^{(1)})$ and $\tfrac12(f^{(0)}-f^{(1)})$; for monotone $F$, $h$ is the indicator that $i$ is pivotal & Section~\ref{sec:prelim} \\
+$\E$, $\Pr$, $\Var$ & expectation, probability and variance over a uniform point $x$ & Section~\ref{sec:prelim} \\
+$T$ & a subset of $[n]\setminus\{i\}$ & Section~\ref{sec:prelim} \\
+$\delta$ & $\Inf_i(f)=\E h^2$ & Section~\ref{sec:prelim} \\
+$p(T)$, $q(T)$ & $\hat g(T)^2$ and $\hat h(T)^2$ & Section~\ref{sec:prelim} \\
+$\Phi(a,b)$, $\eta(x)$ & $\eta(a)+\eta(b)-\eta(a+b)$, and $-x\log_2x$ & Section~\ref{sec:prelim} \\
+$N$, $M$ & the indicators that $F$ vanishes at $x_i=0$ and at $x_i=1$; $N$ is also the indicator that every term not through $i$ fails & Section~\ref{sec:prelim} \\
+$\Omega$, $\varepsilon$, $\kappa$ & a family of non-empty subsets of $[n]\setminus\{i\}$ and the two parameters of the separation inequality; their choice in Section~\ref{sec:mix} & Proposition~\ref{prop:sep} \\
+$v$ & $\Var f$ & Lemma~\ref{lem:rel} \\
+$\varphi(x)$ & $2x\ln2-(x^2+1)\ln(x^2+1)+x^2\ln(x^2)$ & proof of Lemma~\ref{lem:rel} \\
+$p_+$, $q_+$ & the sums of $p(T)$ and of $q(T)$ over non-empty $T$ & proof of Lemma~\ref{lem:rel} \\
+$G$, $\mathrm{Aut}(G)$ & a linear hypergraph of the census, and its automorphism group & Section~\ref{sec:census} \\
+$K$ & an integer at most $4^n$ whose logarithm enters $H$, $I$ and $E_i$ & Section~\ref{sec:census} \\
+$B_t$, $L_t$, $a_t$ & $t\setminus\{i\}$ for a term $t$ through $i$, its size, and $2^{-L_t}$; $\lambda_i=\sum_ta_t$ & Section~\ref{sec:mix} \\
+$t'$ & a second term through $i$ & Section~\ref{sec:mix} \\
+$s$ & a background term, a term not containing $i$ & Section~\ref{sec:mix} \\
+$\ell_j$ & the load of $j$ from background terms, $\sum_{s\ni j}2^{-(|s|-1)}$ & Section~\ref{sec:mix} \\
+$\mu_t$, $\theta$ & $\sum_{j\in B_t}\ell_j$, and $1-\lambda_i^{-1}\bigl[\sum_ta_t\mu_t+\sum_{t'<t}a_{t'}a_t\bigr]$ & Section~\ref{sec:mix} \\
+$k_t$, $r$ & a threshold $1\le k_t\le L_t$, and the number of variables a set has in $B_t$ & Section~\ref{sec:mix} \\
+$\gamma_t$, $\alpha_t$ & the two quantities of the block $B_t$ in Proposition~\ref{prop:mix} & Section~\ref{sec:mix} \\
+$J$ & a subset of $B_t$ with $k_t$ elements & Section~\ref{sec:mix} \\
+$A$, $A_t$ & $\E N$, and the indicator that every variable of $B_t$ equals $1$ & Section~\ref{sec:mix} \\
+$R_t$, $V_t$ & the indicator that every background term disjoint from $B_t$ fails, and the OR of the conjunctions $s\setminus B_t$ over the background terms $s$ meeting $B_t$ & proof of Lemma~\ref{lem:m1} \\
+$h_t$, $\Psi_t$ & $NA_t\prod_{t'<t}(1-A_{t'})$, and the factor in $h_t=A_t\Psi_t$ that does not depend on $B_t$ & proof of Lemma~\ref{lem:m2} \\
+$D_J$ & the product over $j\in J$ of the derivatives $D_ju=\tfrac12(u|_{x_j=0}-u|_{x_j=1})$ & proof of Lemma~\ref{lem:m3} \\
+$R_J$, $Y_j$, $s_j$ & the indicator that every background term avoiding $J$ fails, the OR of the conjunctions $s\setminus\{j\}$ over the background terms $s\ni j$, and one such term & proof of Lemma~\ref{lem:m3} \\
+$a$, $u$ & $2^{-L}$ and $1/(64L^2)$ & proof of Theorem~\ref{thm:local} \\
+$h'$ & $N(1-A_t)\mathbf 1[\bigvee_{t'\ne t}A_{t'}]$ & proof of Theorem~\ref{thm:local} \\
+$\theta_0$, $\varepsilon_0$, $\kappa_0$, $\delta_0$ & the values of $\theta$, $\varepsilon$, $\kappa$ and an upper bound for $\delta$ in the one-term criterion & proof of Theorem~\ref{thm:local} \\
+$\beta$ & $\log_2(1/m)$ & Lemma~\ref{lem:bias} \\
+$W$ & a set of vertices of the cube; in the proof, the minority set & proof of Lemma~\ref{lem:bias} \\
+$\lambda$, $\ell$ & the load $Q2^{-(w-1)}$ of every variable of $\mathrm{TD}(w,Q)$, and the load $(Q-1)2^{-(w-1)}$ from background terms & Section~\ref{sec:td} \\
+$\alpha^{(r)}$ & the value of $\alpha_t$ for a block with $k_t=r$ & proof of Theorem~\ref{thm:td} \\
+$Z$, $\rho$ & the number of satisfied terms, and $2^{-w}$, the probability that a term is satisfied & proof of Theorem~\ref{thm:td} \\
+\bottomrule
+\end{longtable}
 
 \begin{thebibliography}{99}
 \bibitem{ACKSW} S.~Arunachalam, S.~Chakraborty, M.~Kouck\'y, N.~Saurabh, R.~de~Wolf, Improved bounds on Fourier
