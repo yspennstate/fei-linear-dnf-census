@@ -89,10 +89,11 @@ attained only by $F=x_1x_2\vee x_2x_3\vee x_3x_4\vee x_4x_1\vee x_5x_6\vee x_6x_
 attained only by $F=x_1\vee x_2\vee x_3\vee x_4\vee x_5x_6\vee x_6x_7\vee x_7x_8\vee x_8x_5$.
 \end{theorem}
 
-\begin{table}[h]
+\begin{table}[tbp]
 \centering
 \begin{tabular}{rrrcc}
-$n$ & classes & functions & $\max\min_iE_i/\Inf_i$ & $\max H/I$\\\hline
+\toprule
+$n$ & classes & functions & $\max\min_iE_i/\Inf_i$ & $\max H/I$\\\midrule
 2 & 2 & 2 & 2.0000000000 & 2.0000000000\\
 3 & 5 & 9 & 2.6724889840 & 2.9558895823\\
 4 & 16 & 97 & 2.6340033909 & 3.4024755512\\
@@ -100,6 +101,7 @@ $n$ & classes & functions & $\max\min_iE_i/\Inf_i$ & $\max H/I$\\\hline
 6 & 592 & 185{,}521 & 2.9444953039 & 3.7397640179\\
 7 & 10{,}808 & 35{,}406{,}319 & 2.9546838142 & 3.8043570698\\
 8 & 552{,}251 & 18{,}785{,}639{,}553 & 3.3047013225 & 3.8891054198\\
+\bottomrule
 \end{tabular}
 \caption{Linear monotone functions with exactly $n$ relevant variables. Values rounded to ten decimals; at $n=8$ the
 second largest values are $3.1084496901$ and $3.8663646986$.}\label{tab:census}
@@ -415,15 +417,17 @@ terms of width $w$; the point $(\xi,\zeta)$ lies on the $Q$ terms with $\tau=\ze
 so the DNF is linear. Every variable has load $\lambda=Q2^{-(w-1)}$, and every variable of a term $t$ through $i$, other
 than $i$, has $\ell_j=(Q-1)2^{-(w-1)}$.
 
-\begin{table}[h]
+\begin{table}[tbp]
 \centering
 \begin{tabular}{rrrrcccc}
-$w$ & $Q$ & $n$ & terms & $\Pr[F=0]$ & $H/I$ & $\min_iE_i/\Inf_i$ & $\max_iE_i/\Inf_i$\\\hline
+\toprule
+$w$ & $Q$ & $n$ & terms & $\Pr[F=0]$ & $H/I$ & $\min_iE_i/\Inf_i$ & $\max_iE_i/\Inf_i$\\\midrule
 3 & 3 & 9 & 9 & 0.4180 & 3.0856094956 & 2.1015004988 & 2.1015004988\\
 3 & 5 & 15 & 25 & 0.1435 & 3.8797848238 & 2.7150952652 & 2.7150952652\\
 4 & 5 & 20 & 25 & 0.3219 & 3.9024430124 & 2.4713311010 & 2.4713311010\\
 3 & 7 & 21 & 49 & 0.0408 & 4.1345862211 & 2.5335124504 & 2.5335124504\\
 5 & 5 & 25 & 25 & 0.5332 & 3.8799716886 & 2.2003373077 & 2.2003373077\\
+\bottomrule
 \end{tabular}
 \caption{$\mathrm{TD}(w,Q)$ with $X=\{0,\dots,w-1\}$, from exact Walsh transforms.}\label{tab:td}
 \end{table}
