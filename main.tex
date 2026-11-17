@@ -27,10 +27,9 @@ exhaustive enumeration with certified logarithms over all linear monotone DNFs w
 ($552{,}251$ isomorphism classes on exactly eight), we determine the largest ratio $H(f)/I(f)$ of Fourier entropy to
 total influence, $3.8891054198\ldots$, and the largest value of $\min_iE_i(f)/\Inf_i(f)$, where $E_i$ is the erasure
 entropy at $i$, $3.3047013224\ldots$; each is attained by a single class. A transversal design on $21$ variables has
-$H/I=4.1346\ldots$, so neither value is the supremum over the class. We give three sufficient conditions for a
-coordinate with $E_i\le c\,\Inf_i$, for an absolute constant $c$, in a linear monotone DNF, and a family of affine
-transversal designs on which all three, as well as the width and variance bounds of earlier work, fail at every
-coordinate.
+$H/I=4.1346\ldots$, so the first value is not the supremum over the class. We give three sufficient conditions for a
+coordinate with $E_i\le c\,\Inf_i$, with $c$ absolute; the third bounds $H/I$, which suffices because $\sum_iE_i\le H$. A family of affine transversal designs violates
+all three, as well as a width bound and a variance bound, at every coordinate.
 \end{abstract}
 
 \subjclass[2020]{06E30, 42C10, 94A17}
@@ -64,9 +63,15 @@ a coordinate with $E_i(f)\le c\,\Inf_i(f)$~\cite{Shm1}.
 Let $F$ be a monotone DNF and $f=1-2F$. We call $F$ \emph{linear} if any two of its terms share at most one variable.
 Read-once DNFs are the linear DNFs in which every variable lies in one term. For linear DNFs whose terms all have width
 $w$ and in which every variable lies in at most $\Delta\le2^{(1-\nu)(w-1)}$ terms, $E_i/\Inf_i=2+o(1)$ at every coordinate
-as $w\to\infty$~\cite{Shm6}, and a DNF of width $w$ has a coordinate with $E_i/\Inf_i\le w+3+\log_2e$~\cite{Shm3};
-for a monotone DNF one term of width $w$ is enough (Section~\ref{sec:prelim}). The bound of~\cite{Shm3} grows with $w$, so it does not give a uniform bound when the
-widths are unbounded. This paper concerns linear monotone DNFs with no restriction on widths or degrees. Since the minimal DNF
+as $w\to\infty$~\cite[Theorem~1]{Shm6}, and a DNF of width $w$ has a coordinate with $E_i/\Inf_i\le w+3+\log_2e$~\cite{Shm3};
+for a monotone DNF one term of width $w$ is enough (Section~\ref{sec:prelim}). The first result needs equal widths and
+a degree bound, and the second grows with $w$, so neither is uniform over linear monotone DNFs. The proof
+of~\cite{Shm6} works only when the largest degree is small, because it uses the terms near a coordinate only through
+that degree. It goes through with the load of each
+variable in place of the degree (Proposition~\ref{prop:mix}), and then a condition on a single term is enough, whatever
+the other terms (Theorem~\ref{thm:local}). The affine transversal designs of Theorem~\ref{thm:td} violate this condition
+and the other known ones at every coordinate, while the exact ratios on all linear monotone DNFs with at most eight
+variables, and on the designs we can compute, stay below $4.14$. Since the minimal DNF
 of a monotone function is unique, linearity is a property of the function.
 
 \subsection{Small dimensions}
@@ -105,11 +110,10 @@ $n$ & classes & functions & $\max\min_iE_i/\Inf_i$ & $\max H/I$\\\midrule
 second largest values are $3.1084496901$ and $3.8663646986$.}\label{tab:census}
 \end{table}
 
-As far as we know this is the first exhaustive computation of the FEI ratio on a class of this size. Biswas and
-Sarkar~\cite{BS} searched all Boolean functions on at most five variables for the min-entropy version of the
+Biswas and Sarkar~\cite{BS} searched all Boolean functions on at most five variables for the min-entropy version of the
 conjecture; the largest ratio of min-entropy to influence they found there is $16/7$.
 
-The maxima of Theorem~\ref{thm:census} are not suprema over the class. The function $\mathrm{AND}_n$ is a linear DNF
+The maximum of $H/I$ in Theorem~\ref{thm:census} is not the supremum over the class. The function $\mathrm{AND}_n$ is a linear DNF
 with one term, and $H/I\to4$ along it. The transversal designs of Section~\ref{sec:td}, which have many intersecting
 terms of equal width, give larger values: on $21$ variables, with $49$ terms of width $3$ and every variable in $7$ of
 them, $H/I=4.1345862211$ (Table~\ref{tab:td}). On these designs $\min_iE_i/\Inf_i$ stays between $2.10$ and $2.72$.
@@ -117,7 +121,7 @@ All these values lie well below the best known lower bound $C>6.5218$ on the con
 explicit balanced monotone function on $18$ variables~\cite{Num26}, so they say nothing about $C$ itself. Earlier
 lower bounds are due to O'Donnell and Tan~\cite{OT13}, Hod~\cite{Hod} and Mosaic Intelligence~\cite{MI26a,MI26b}.
 
-\subsection{Certificates and an obstruction}
+\subsection{Sufficient conditions and an obstruction}
 For a variable $j$ put $\lambda_j=\sum_{t\ni j}2^{-(|t|-1)}$, the sum over the terms through $j$; we call it the
 \emph{load} of $j$. In a term of width $L+1$ that meets no other term every variable has load $2^{-L}$.
 
@@ -130,10 +134,13 @@ then $E_i(f)<6\,\Inf_i(f)$ for every $i\in t$.
 \end{theorem}
 
 Nothing is assumed about the variables outside $t$, and $t$ need not be a shortest term. Theorem~\ref{thm:local} is
-proved by a variant of the argument for a finite certificate, Proposition~\ref{prop:mix}, which bounds $|E_i/\Inf_i-2|$ by a quantity computed
+proved by a variant of the load bound, Proposition~\ref{prop:mix}, which bounds $|E_i/\Inf_i-2|$ by a quantity computed
 from the terms through $i$ and the loads of their variables, with no maximum width or maximum degree. The third
 condition is a bound by the bias of $f$ (Lemma~\ref{lem:bias}): if $m=\min(\Pr[f=1],\Pr[f=-1])>0$ then
-$H(f)/I(f)<2+2n/\log_2(1/m)$, for every Boolean $f$ on $n$ variables.
+$H(f)/I(f)\le2+2(n-2+\log_2e)/\log_2(1/m)$, for every Boolean $f$ on $n$ variables. It gives a coordinate as well. The
+erasure entropy $E_i(f)$ is the entropy of $\mathbf 1[i\in U]$ given the other coordinates of $U$, which is at most its
+entropy given the coordinates before $i$, so $\sum_iE_i(f)\le H(f)$ by the chain rule; with $\sum_i\Inf_i(f)=I(f)$, a
+bound $H(f)\le c\,I(f)$ gives some $i$ with $E_i(f)\le c\,\Inf_i(f)$.
 
 Section~\ref{sec:td} shows that these conditions do not combine into a proof of the FEI conjecture for linear monotone
 DNFs. For $Q$ a prime power and $w\le Q$ let $\mathrm{TD}(w,Q)$ be the DNF whose variables are the points of
@@ -144,15 +151,15 @@ $\xi\mapsto\sigma\xi+\tau$ restricted to $X$.
 Let $Q=2^k$ and $w=k+2\lceil\log_2k\rceil+1$, and let $F_k=\mathrm{TD}(w,Q)$. As $k\to\infty$:
 \begin{enumerate}
 \item every term has width $w\to\infty$, and the hypothesis of Theorem~\ref{thm:local} fails for every term;
-\item the right side of the certificate of Proposition~\ref{prop:mix} tends to infinity at every coordinate,
-uniformly over all choices of its parameters;
+\item the right side of the load bound of Proposition~\ref{prop:mix} tends to infinity at every coordinate,
+uniformly over all choices of its thresholds $k_t$;
 \item $\Pr[F_k=0]\to0$ but $\log_2(1/\Pr[F_k=0])/n\to0$, so the bias bound tends to infinity;
 \item the variance bound of Lemma~\ref{lem:rel} tends to infinity at every coordinate.
 \end{enumerate}
 \end{theorem}
 
-Theorem~\ref{thm:td} says nothing about the actual ratios on $F_k$, which we can compute only for small designs; there
-they are small (Table~\ref{tab:td}).
+Theorem~\ref{thm:td} gives no bound on the ratios themselves. On the designs of Table~\ref{tab:td} they are small:
+$H/I\le4.1346$ and $\min_iE_i/\Inf_i\le2.7151$.
 
 \section{Preliminaries}\label{sec:prelim}
 
@@ -262,7 +269,7 @@ alone. The maximiser of $H/I$ is the OR of
 $\mathrm{OR}_4$ and $\mathrm{CYC}_4$ on disjoint variables. Both maxima grow at every step from $n=4$ to $n=8$, so the census
 gives no indication of the suprema.
 
-\section{The load certificate}\label{sec:mix}
+\section{The load bound}\label{sec:mix}
 
 Let $F$ be a linear monotone DNF and $i$ a variable that lies in no singleton term. Let $t$ range over the terms
 through $i$, put $B_t=t\setminus\{i\}$, $L_t=|B_t|\ge1$, $a_t=2^{-L_t}$, so that $\lambda_i=\sum_ta_t$. By linearity the
@@ -290,12 +297,15 @@ If $\theta>0$, every denominator in $\alpha_t$ is positive, and ${\lambda_i}\le1
 \]
 \end{proposition}
 
-When all terms have width $w$ and all loads are bounded through the degree, this is~\cite[Theorem~6]{Shm6}; the proof
-follows the three lemmas there, and we indicate the changes. Let $N$ be the indicator that every background term fails,
+When all terms have width $w$ and all loads are bounded through the degree, this is~\cite[Theorem~6]{Shm6}.
+Lemmas~\ref{lem:m1}--\ref{lem:m3} are~\cite[Lemmas~3--5]{Shm6} with $(\Delta-1)2^{-(w-1)}$ replaced by the loads $\ell_j$
+and $\mu_t$, the product $d\,2^{-(w-1)}$ by $\lambda_i$, and $d\gamma_k$ by $\sum_t\gamma_t$. The one new step is the
+triangle inequality over the terms $t$ in the proof of Lemma~\ref{lem:m2}; the other steps are those of~\cite{Shm6},
+written out so that the per-term constants can be checked. Let $N$ be the indicator that every background term fails,
 $A=\E N$, $A_t$ the indicator that all of $B_t$ equal $1$, and $h=N\cdot\mathbf 1[\bigvee_tA_t]$, so that
 $\delta=\E h=\Inf_i(f)$.
 
-\begin{lemma}\label{lem:m1}
+\begin{lemma}[{cf.~\cite[Lemma~3]{Shm6}}]\label{lem:m1}
 $A{\lambda_i}\theta\le\delta\le A{\lambda_i}$.
 \end{lemma}
 
@@ -311,7 +321,7 @@ $\delta\ge A\sum_ta_t(1-\mu_t)-A\sum_{t'<t}a_{t'}a_t=A{\lambda_i}\theta$.
 
 Let $\Omega$ be the family of sets $T\subseteq[n]\setminus\{i\}$ with $|T\cap B_t|\ge k_t$ for some $t$.
 
-\begin{lemma}\label{lem:m2}
+\begin{lemma}[{cf.~\cite[Lemma~4]{Shm6}}]\label{lem:m2}
 $\sum_{T\notin\Omega}\hat h(T)^2\le\varepsilon\delta$.
 \end{lemma}
 
@@ -326,7 +336,7 @@ of $\hat h_t^2$ off $\Omega$ is at most $\gamma_t\|h_t\|_2^2$. By the triangle i
 The bound by $\delta$ is trivial.
 \end{proof}
 
-\begin{lemma}\label{lem:m3}
+\begin{lemma}[{cf.~\cite[Lemma~5]{Shm6}}]\label{lem:m3}
 $\sum_{T\in\Omega}\hat N(T)^2\le A\sum_t\alpha_t$.
 \end{lemma}
 
@@ -466,11 +476,10 @@ side of Lemma~\ref{lem:rel} tends to infinity.
 
 For $\mathrm{TD}(w,2^k)$ the width bound of Section~\ref{sec:prelim} is of order $w$, and Theorem~\ref{thm:local} does
 not apply to any term. So a linear monotone DNF in which every restriction has a coordinate covered by one of these
-bounds satisfies $H\le C\,I$ by the induction of~\cite{Shm1}, but the designs show that not every linear monotone DNF
+conditions satisfies $H\le C\,I$ by the induction of~\cite{Shm1}, but the designs show that not every linear monotone DNF
 has such a coordinate even at the root. Covering them would need either a separation estimate that uses the loads
 conditional on the background event $N$, rather than the unconditional loads, or a bound for averages over whole terms
-in the spirit of decision-tree arguments. Table~\ref{tab:td} suggests that the actual ratios on the designs remain
-small.
+in the spirit of decision-tree arguments.
 
 \section*{Acknowledgements and funding}
 This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
@@ -493,8 +502,12 @@ These entities are included in the funding declaration above.
 
 \section*{Declaration of generative AI and AI-assisted technologies}
 The paper comes out of Math Brain, a project on the use of AI systems in research
-mathematics~\cite{BrainFramework,MathBrainRepo}. A Codex agent running OpenAI's GPT-6.1 wrote the census programs,
-ran the census and found the certificates, the transversal-design obstruction and their proofs. Claude agents
+mathematics~\cite{BrainFramework,MathBrainRepo}. The results it builds on are those of the mathematicians who proved
+them: the conjecture is due to Friedgut and Kalai~\cite{FK96}, the erasure entropy to Verd\'u and Weissman~\cite{VW08},
+the correlation inequality used throughout to Harris~\cite{Harris}, the edge-isoperimetric inequality to
+Harper~\cite{Harper} and Hart~\cite{Hart}, and the bounds compared with in the introduction to Han~\cite{Han} and to
+Keller, Mossel and Schlank~\cite{KMS}. A Codex agent running OpenAI's GPT-6.1 wrote the census programs, ran the census
+and found the load bound, the one-term condition, the transversal-design obstruction and their proofs. Claude agents
 (Anthropic: Fable and Opus~5.5) checked the proofs, wrote the independent census check and the design computations,
 and prepared the manuscript. The author directed the work and is responsible for the content of the paper and for decisions
 concerning its dissemination.
